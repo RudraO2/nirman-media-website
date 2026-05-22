@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Nirman Media — Asset Prompts</title>
+<meta name="theme-color" content="#F5ECDA" />
+<style>
+  :root{
+    --cream:#F5ECDA;
+    --cream-warm:#EBDFC4;
+    --sand:#E6D8B9;
+    --mist:#DBCDA9;
+    --line:#C9B98F;
+    --ink:#1A1814;
+    --ink-soft:#3A352B;
+    --navy:#1A2540;
+    --gold:#B68A33;
+    --gold-deep:#8E6A1E;
+    --ok:#2F7D5B;
+    --r:14px;
+    --shadow:0 18px 36px -22px rgba(26,24,20,.32);
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--cream);color:var(--ink);
+    font-family:'Inter',-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    font-feature-settings:"ss01","kern";}
+  body{
+    background-image:
+      radial-gradient(900px 500px at 12% -10%, rgba(182,138,51,.10), transparent 60%),
+      radial-gradient(700px 400px at 100% 110%, rgba(142,106,30,.08), transparent 60%);
+    background-attachment:fixed;
+    min-height:100vh;
+    padding:0 0 120px;
+  }
+  a{color:var(--gold-deep)}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px}
+  header.hero{padding-top:max(20px, env(safe-area-inset-top));}
+  .eyebrow{
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--gold-deep)
+  }
+  h1{
+    font-family:'Playfair Display',Georgia,serif;
+    font-weight:600;letter-spacing:-.02em;line-height:.95;
+    font-size:clamp(34px,8.5vw,52px);margin:8px 0 6px;
+  }
+  h1 em{font-style:italic;font-weight:400;color:var(--gold-deep);}
+  .lede{color:var(--ink-soft);font-size:15.5px;line-height:1.55;max-width:60ch;margin:6px 0 18px}
+
+  .panel{
+    background:#FBF4E2;
+    border:1px solid var(--line);
+    border-radius:var(--r);
+    padding:14px 14px;
+    margin:14px 0;
+  }
+  .panel h2{font-family:'Playfair Display',Georgia,serif;font-size:18px;margin:0 0 6px;letter-spacing:-.01em}
+  .panel p{margin:4px 0;font-size:14px;line-height:1.5;color:var(--ink-soft)}
+  .panel code, .panel kbd{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:var(--sand);padding:1px 6px;border-radius:5px;font-size:13px;color:var(--ink)
+  }
+
+  .progressbar{
+    height:6px;background:var(--sand);border-radius:999px;overflow:hidden;margin-top:4px;
+  }
+  .progressbar > span{display:block;height:100%;background:var(--gold);width:0%;transition:width .5s var(--ease)}
+  .progress-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:var(--ink-soft)}
+  .progress-row strong{color:var(--ink);font-weight:600}
+
+  .toolbar{
+    position:sticky;top:0;z-index:10;
+    background:color-mix(in srgb, var(--cream) 88%, transparent);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+    margin:0 -16px;padding:10px 16px;
+  }
+  .search{
+    width:100%;border:1px solid var(--line);border-radius:999px;background:#FBF4E2;color:var(--ink);
+    font:inherit;font-size:15px;padding:11px 16px;outline:none;
+  }
+  .search:focus{border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb, var(--gold) 30%, transparent)}
+
+  .chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    flex:0 0 auto;font:inherit;font-size:12.5px;font-weight:500;
+    border:1px solid var(--line);background:#FBF4E2;color:var(--ink-soft);
+    padding:7px 13px;border-radius:999px;cursor:pointer;letter-spacing:.04em;white-space:nowrap;
+  }
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+
+  .group{margin-top:24px}
+  .group-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:6px 2px 8px;border-bottom:1px solid var(--line)}
+  .group-title{font-family:'Playfair Display',Georgia,serif;font-size:22px;letter-spacing:-.01em;font-weight:600;margin:0}
+  .group-meta{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+
+  .card{
+    background:#FBF4E2;border:1px solid var(--line);border-radius:var(--r);
+    padding:14px 14px 12px;margin:12px 0;box-shadow:var(--shadow);
+    transition:opacity .35s var(--ease), transform .35s var(--ease), background .35s var(--ease);
+  }
+  .card.is-done{opacity:.5;background:var(--sand)}
+  .card.is-done .prompt{filter:saturate(.6)}
+  .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .filename{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:var(--sand);border-radius:6px;padding:5px 9px;font-size:13.5px;color:var(--ink);
+    user-select:all;-webkit-user-select:all;word-break:break-all
+  }
+  .ar{
+    background:var(--ink);color:var(--cream);font-size:11px;font-weight:600;
+    letter-spacing:.12em;padding:5px 9px;border-radius:999px;white-space:nowrap;
+  }
+  .where{font-size:12px;color:var(--ink-soft);margin:8px 0 0;letter-spacing:.01em}
+  .prompt{
+    margin:10px 0 0;background:var(--cream);border:1px solid var(--line);
+    border-radius:10px;padding:11px 12px;font-size:14.5px;line-height:1.55;color:var(--ink-soft);
+    white-space:pre-wrap;word-wrap:break-word
+  }
+  .actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .btn{
+    font:inherit;font-weight:600;font-size:13.5px;letter-spacing:.02em;
+    border:1px solid var(--ink);background:var(--ink);color:var(--cream);
+    padding:11px 16px;border-radius:999px;cursor:pointer;flex:1 1 auto;
+    transition:transform .25s var(--ease), background .25s var(--ease), color .25s var(--ease);
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;
+  }
+  .btn:active{transform:scale(.98)}
+  .btn.secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost{background:transparent;color:var(--ink-soft);border-color:transparent;flex:0 0 auto;padding:11px 12px}
+  .btn .ok{display:none}
+  .btn.copied{background:var(--ok);border-color:var(--ok);color:#fff}
+  .btn.copied .ok{display:inline}
+  .btn.copied .lbl{display:none}
+  .btn.done-toggle.is-on{background:transparent;color:var(--ok);border-color:var(--ok)}
+
+  .ghost-row{display:flex;gap:6px;align-items:center;color:var(--ink-soft);font-size:12px;margin-top:6px;flex-wrap:wrap}
+  .ghost-row code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:transparent;padding:0;color:var(--ink)}
+
+  .toast{
+    position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);
+    background:var(--ink);color:var(--cream);padding:11px 16px;border-radius:999px;
+    font-size:14px;font-weight:500;letter-spacing:.02em;box-shadow:0 18px 36px -10px rgba(0,0,0,.4);
+    z-index:50;transition:transform .35s var(--ease), opacity .35s var(--ease);opacity:0;pointer-events:none
+  }
+  .toast.show{transform:translate(-50%,0);opacity:1}
+
+  .footer-note{margin:34px 0 8px;font-size:12.5px;color:var(--ink-soft);text-align:center;line-height:1.55}
+  .reset{background:transparent;border:1px solid var(--line);color:var(--ink-soft);
+    padding:9px 16px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}
+
+  @media (max-width:480px){
+    .group-title{font-size:20px}
+    h1{font-size:38px}
+    .card{padding:13px 12px}
+    .prompt{font-size:14px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Nirman Media · Asset Brief</p>
+    <h1>Image prompts <em>for the studio.</em></h1>
+    <p class="lede">73 images, one tap to copy each. Paste into Gemini (Nano Banana), generate, save with the exact filename shown. Each prompt already specifies its aspect ratio.</p>
+
+    <div class="panel">
+      <h2>How to use</h2>
+      <p><strong>1.</strong> Tap the file pill to copy the filename, then tap <strong>Copy prompt</strong>.</p>
+      <p><strong>2.</strong> Open Gemini app on your phone. Paste the prompt. Generate.</p>
+      <p><strong>3.</strong> Save the image with the filename shown (it’s OK if the phone saves it as <code>.jpg</code> or <code>.png</code> — keep the rest of the name identical, we’ll convert to <code>.webp</code> after).</p>
+      <p><strong>4.</strong> Store every image inside one folder called <code>nirman-assets</code>. Send the folder back when done.</p>
+      <p><strong>5.</strong> Tap <strong>Done</strong> on a card to mark it finished — progress is saved on this phone.</p>
+    </div>
+
+    <div class="progress-row">
+      <span>Progress: <strong id="progressLabel">0 / 73</strong></span>
+      <button class="reset" id="resetBtn" type="button">Reset</button>
+    </div>
+    <div class="progressbar"><span id="progressFill"></span></div>
+  </header>
+
+  <div class="toolbar">
+    <input class="search" id="search" type="search" placeholder="Search filename or prompt…" autocomplete="off" />
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <main id="grid"></main>
+
+  <p class="footer-note">All prompts end with the exact aspect ratio Gemini should generate.<br/>Keep filenames identical so they slot into the build correctly.</p>
+</div>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+const DATA = [
+  // ============ HERO & TOUR ============
+  { group:"Hero & Tour", file:"hero/hero-poster.jpg", ar:"16:9", where:"Homepage scrub-video poster (also used as OG fallback)",
+    prompt:"Cinematic film still establishing wide of a luxury Jaipur hotel courtyard at blue-hour twilight, warm interior lights glowing through arched windows, soft fog drifting above a still reflective pool, brass lanterns along the colonnade, a single figure walking through the frame in soft focus, navy sky transitioning to a cream stone palette with gold accent lights, gentle anamorphic lens flare, premium hospitality brand feel, no logos, no text. Aspect ratio: 16:9." },
+  { group:"Hero & Tour", file:"tour/tour-poster.jpg", ar:"16:9", where:"3D scrolly-tour teaser poster",
+    prompt:"Architectural still of a luxury Jaipur penthouse living room at golden hour, viewed as if frozen mid-walkthrough, warm directional sunlight raking across a cream linen sofa, low travertine coffee table with a single ceramic vase, floor-to-ceiling windows revealing a soft-focused city skyline at sunset, brass accents, premium architecture magazine feel, no logos, no text. Aspect ratio: 16:9." },
+
+  // ============ BEFORE / AFTER ============
+  { group:"Before / After", file:"gen/before.webp", ar:"4:5", where:"Homepage Before/After slider — “before” side",
+    prompt:"Smartphone snapshot quality of a Jaipur 3BHK living room, mediocre fluorescent overhead lighting, dull beige walls, slightly tilted handheld framing, ordinary furniture poorly arranged, no styling, daytime through closed curtains, flat unflattering colour, looks like a real-estate listing taken by an agent on a phone, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Before / After", file:"gen/after.webp", ar:"4:5", where:"Homepage Before/After slider — “after” side",
+    prompt:"Editorial real-estate photograph of the same Jaipur 3BHK living room, golden-hour warmth flooding through wide-open sheer curtains, perfectly composed wide architectural angle, low-contrast film tone, carefully styled cushions and a stack of design books on the coffee table, cream and warm-wood palette with a single brass accent, magazine cover quality, premium feel, no logos, no text. Aspect ratio: 4:5." },
+
+  // ============ ABOUT — TEAM & STUDIO ============
+  { group:"About — Team & Studio", file:"gen/about-1.webp", ar:"16:9", where:"About page hero (full-bleed) + team grid card (Founder · Director)",
+    prompt:"Cinematic editorial portrait of an Indian creative director founder in his late twenties, standing in a sun-filled Jaipur rooftop studio space, leaning against a cream sandstone wall watching playback on a small field monitor, navy linen shirt, warm Jaipur architecture softly out of focus behind him, late golden-hour rim light catching the side of his face, magazine cover quality, no logos, no text. Aspect ratio: 16:9." },
+  { group:"About — Team & Studio", file:"gen/about-2.webp", ar:"4:5", where:"About page — Cinematographer team card + “Visit the studio” gallery",
+    prompt:"Editorial portrait of a focused Indian cinematographer in their early thirties, eye to the viewfinder of a cinema camera, soft window light from the side, navy linen shirt, warm Jaipur studio backdrop slightly out of focus, magazine cover quality, low-contrast film tone, cream and gold ambient palette, no logos, no text. Aspect ratio: 4:5." },
+  { group:"About — Team & Studio", file:"gen/about-3.webp", ar:"4:5", where:"About page — Editor + Colourist team card + “Visit the studio” gallery",
+    prompt:"Editorial portrait of a young Indian editor and colourist at a calibrated grading station, two monitors glowing with film stills, soft cream wall, hands on a colour wheel controller, mid-action focused expression, warm tungsten ambient blending with cool monitor highlights, magazine documentary style, no logos, no text. Aspect ratio: 4:5." },
+  { group:"About — Team & Studio", file:"gen/about-4.webp", ar:"4:5", where:"About page — Producer team card",
+    prompt:"Editorial portrait of an Indian producer in her late twenties holding a clipboard on a heritage Jaipur location shoot, brief eye contact with the camera, a quiet confident smile, mustard cotton kurta over jeans, soft overcast natural light, shallow depth of field, premium hospitality brand feel, no logos, no text. Aspect ratio: 4:5." },
+
+  // ============ INDUSTRY COVERS ============
+  { group:"Industry Covers", file:"gen/ind-real-estate-cover.webp", ar:"4:5", where:"Industries directory hover preview + Real Estate detail-page hero",
+    prompt:"Editorial architectural photograph of a premium residential tower in Mansarovar Jaipur at blue-hour twilight, glowing warm interior lights on every floor, cream sandstone façade with vertical fins, soft fog at the base, slight upward perspective, navy sky transitioning to a gold horizon, a single drifting cloud, magazine-grade real-estate photography, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Industry Covers", file:"gen/ind-hotels-cover.webp", ar:"4:5", where:"Industries directory + Hotels detail page",
+    prompt:"Editorial hospitality photograph of a luxury hotel lobby in Jaipur at blue hour, soft warm pendant lights catching brass and travertine surfaces, a single bell-boy in mid-motion in soft focus, intricate jali screen casting patterned shadows across a cream marble floor, navy velvet banquette, magazine cover quality, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Industry Covers", file:"gen/ind-resorts-cover.webp", ar:"4:5", where:"Industries directory + Resorts detail page",
+    prompt:"Editorial destination photograph of a luxury Rajasthan lakefront resort at golden hour, infinity pool reflecting cream stone arches, distant Aravalli hills in haze, soft warm light raking across white sun-loungers, a couple in linen walking the deck in soft focus, premium travel magazine feel, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Industry Covers", file:"gen/ind-restaurants-cover.webp", ar:"4:5", where:"Industries directory + Restaurants detail page",
+    prompt:"Editorial restaurant photograph of an intimate Jaipur fine-dining room at dusk, warm pendant lights over set tables with crystal and brass cutlery, a single steaming dish in the foreground with shallow depth of field, deep navy walls, cream linen tablecloths, soft motion-blurred staff in the background, premium food magazine quality, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Industry Covers", file:"gen/ind-gyms-cover.webp", ar:"4:5", where:"Industries directory + Gyms & Fitness detail page",
+    prompt:"High-contrast editorial gym photograph of a modern Jaipur fitness studio, a single hard side-light spilling across textured concrete walls, a powerful athlete mid-deadlift, sweat catching the rim light, dust particles in the air, deep shadows with warm gold highlights, navy-black palette with a single gold accent, anthem campaign feel, no logos, no text. Aspect ratio: 4:5." },
+
+  // ============ REAL ESTATE — BENTO TILES ============
+  { group:"Real Estate — Bento", file:"gen/ind-real-estate-b1.webp", ar:"16:9", where:"Bento tile · “Tower Reveal” · Verde, Mansarovar",
+    prompt:"Editorial real-estate film still of a premium residential tower in Mansarovar Jaipur, slow drone-reveal frame, cream sandstone modern façade with vertical fins, soft fog at the base, navy twilight sky behind, a single warm-lit penthouse window, cinematic anamorphic feel, no logos, no text. Aspect ratio: 16:9." },
+  { group:"Real Estate — Bento", file:"gen/ind-real-estate-b2.webp", ar:"4:5", where:"Bento tile · “Living Room” · soft north light",
+    prompt:"Editorial architectural photograph of a luxury Jaipur apartment living room, soft cool north light pouring through floor-to-ceiling windows, cream linen sofa with one navy throw, low travertine coffee table, a single olive tree in a ceramic pot, magazine-grade calm composition, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Real Estate — Bento", file:"gen/ind-real-estate-b3.webp", ar:"1:1", where:"Bento tile · “Lobby Detail”",
+    prompt:"Square architectural detail of a Jaipur luxury apartment lobby, tight composition on a brass lift-call panel mounted on a cream travertine wall, soft warm wall-wash light, a single tone of bronze, magazine architecture photography, no logos, no text. Aspect ratio: 1:1." },
+  { group:"Real Estate — Bento", file:"gen/ind-real-estate-b4.webp", ar:"3:2", where:"Bento tile · “Master Bath”",
+    prompt:"Editorial bathroom photograph in a Jaipur penthouse, a freestanding cream travertine soaking tub centred between two arched windows, soft golden side-light, brass fittings, a single eucalyptus branch in a clay vase, magazine architecture photography, no logos, no text. Aspect ratio: 3:2." },
+  { group:"Real Estate — Bento", file:"gen/ind-real-estate-b5.webp", ar:"9:16", where:"Bento tile · “Tour Strip” · vertical scrollytelling preview",
+    prompt:"Vertical reel still of a premium Jaipur penthouse interior shot for a phone walkthrough, mid-frame of a corridor leading into a living room flooded with golden-hour light, ultra-wide vertical perspective, cinematic warm tone, no people, magazine real-estate aesthetic, no logos, no text. Aspect ratio: 9:16." },
+  { group:"Real Estate — Bento", file:"gen/ind-real-estate-b6.webp", ar:"16:9", where:"Bento tile · “Skyline Drone”",
+    prompt:"Drone wide shot over the Jaipur skyline at sunset, pink-cream city horizon, distant Aravalli silhouettes, a cluster of new residential towers catching the last warm light, soft atmospheric haze, cinematic gradient from navy to gold across the sky, no logos, no text. Aspect ratio: 16:9." },
+
+  // ============ HOTELS — BENTO ============
+  { group:"Hotels — Bento", file:"gen/ind-hotels-b1.webp", ar:"4:5", where:"Bento tile · “Suite 412” · window light",
+    prompt:"Editorial hotel suite photograph of a luxury Jaipur hotel room, soft cool window light through sheer curtains, a perfectly made bed in cream linens with a single navy throw, a single brass bedside lamp glowing warm, a framed Pichwai painting on the cream wall, magazine cover quality, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Hotels — Bento", file:"gen/ind-hotels-b2.webp", ar:"16:9", where:"Bento tile · “Lobby Wide”",
+    prompt:"Editorial hotel lobby photograph of a luxury Jaipur hotel, wide architectural composition, intricate jali screen casting patterned shadows across a cream marble floor, brass pendant chandelier overhead, navy velvet banquette, a single staff member in soft motion-blur crossing the frame, blue hour through tall windows, magazine hospitality photography, no logos, no text. Aspect ratio: 16:9." },
+  { group:"Hotels — Bento", file:"gen/ind-hotels-b3.webp", ar:"3:2", where:"Bento tile · “Bar Detail”",
+    prompt:"Editorial cocktail bar photograph in a luxury Jaipur hotel, close composition on a single amber cocktail in a coupe glass, a hand pouring smoke from a glass cloche, brass-edged bar counter, deep navy backdrop, warm pendant glow, premium spirits magazine quality, no logos, no text. Aspect ratio: 3:2." },
+  { group:"Hotels — Bento", file:"gen/ind-hotels-b4.webp", ar:"3:2", where:"Bento tile · “Pool Twilight”",
+    prompt:"Editorial hospitality photograph of a luxury Jaipur hotel pool at twilight, still water reflecting cream arched colonnades, warm pendant lanterns glowing along the deck, navy dusk sky above, soft fog drifting across the surface, magazine travel photography, no logos, no text. Aspect ratio: 3:2." },
+  { group:"Hotels — Bento", file:"gen/ind-hotels-b5.webp", ar:"21:9", where:"Bento tile · “Façade Pano” (5:1 ultra-wide — use 21:9)",
+    prompt:"Ultra-wide panoramic editorial photograph of a luxury Jaipur hotel façade at blue hour, symmetrical heritage architecture in cream sandstone with brass uplighting on every arched window, navy sky above, soft fog at street level, cinematic letterbox composition, magazine hospitality photography, no logos, no text. Aspect ratio: 21:9." },
+  { group:"Hotels — Bento", file:"gen/ind-hotels-b6.webp", ar:"1:1", where:"Bento tile · “F&B Plate”",
+    prompt:"Square overhead food photograph of a single chef-plated Indian dish on a cream stoneware plate, a hand pouring saffron sauce mid-pour, brass-edge ceramic, soft side window light, magazine food editorial, no logos, no text. Aspect ratio: 1:1." },
+  { group:"Hotels — Bento", file:"gen/ind-hotels-b7.webp", ar:"9:16", where:"Bento tile · “Reel” · vertical",
+    prompt:"Vertical reel still of a luxury Jaipur hotel suite, slow camera move down a cream linen hallway toward an open suite door with golden-hour light spilling out, gentle anamorphic feel, premium hospitality brand reel quality, no logos, no text. Aspect ratio: 9:16." },
+  { group:"Hotels — Bento", file:"gen/ind-hotels-b8.webp", ar:"4:5", where:"Bento tile · “Spa”",
+    prompt:"Editorial spa photograph in a luxury Jaipur hotel, close composition on a single hand placing a folded white towel on a cream stone bench, a candle flame and a brass bowl with marigolds in soft focus, warm side light, navy ambient backdrop, magazine wellness photography, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Hotels — Bento", file:"gen/ind-hotels-b9.webp", ar:"4:5", where:"Bento tile · “Concierge”",
+    prompt:"Editorial portrait of a young Indian concierge in a luxury Jaipur hotel uniform with brass buttons, navy waistcoat and cream gloves, polite eye contact with camera, hands holding a small key card, an ornate jali screen background in soft focus, golden-hour light from a tall window, magazine hospitality photography, no logos, no text. Aspect ratio: 4:5." },
+
+  // ============ RESORTS — BENTO ============
+  { group:"Resorts — Bento", file:"gen/ind-resorts-b1.webp", ar:"16:9", where:"Bento tile · “Coastline Aerial” · lakefront",
+    prompt:"Cinematic drone wide reveal of a luxury Rajasthan lakefront resort at sunset, an infinity pool flowing to the lake edge, cream stone villas tucked into green hills, distant Aravalli range in haze, golden hour with long shadows, magazine travel photography, no logos, no text. Aspect ratio: 16:9." },
+  { group:"Resorts — Bento", file:"gen/ind-resorts-b2.webp", ar:"4:5", where:"Bento tile · “Villa 7”",
+    prompt:"Editorial photograph of a luxury Rajasthan resort villa exterior at golden hour, cream stone walls with a carved jharokha balcony, a single warm-lit window, a frangipani tree in foreground soft focus, navy dusk sky above, premium travel magazine quality, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Resorts — Bento", file:"gen/ind-resorts-b3.webp", ar:"4:5", where:"Bento tile · “Cabana”",
+    prompt:"Editorial photograph of a single cream-canvas pool cabana at a luxury Rajasthan resort, soft afternoon side light, navy and cream cushions, a single brass lantern on a side table, frangipani petals on a wooden tray, magazine destination photography, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Resorts — Bento", file:"gen/ind-resorts-b4.webp", ar:"3:2", where:"Bento tile · “Sunset Dinner”",
+    prompt:"Editorial photograph of a private sunset dinner at a Rajasthan lakefront resort, a single round table with cream linen and brass candle holders set for two on a wooden jetty, the lake reflecting orange and pink sunset behind, frangipani petals on the table, soft warm light, magazine travel photography, no logos, no text. Aspect ratio: 3:2." },
+  { group:"Resorts — Bento", file:"gen/ind-resorts-b5.webp", ar:"9:16", where:"Bento tile · “Trail Reel”",
+    prompt:"Vertical reel still of a Rajasthan resort nature trail at golden hour, a single guest walking away from camera through tall grass toward a distant lake, warm rim light, dust catching the sun, cinematic premium travel reel, no logos, no text. Aspect ratio: 9:16." },
+  { group:"Resorts — Bento", file:"gen/ind-resorts-b6.webp", ar:"3:2", where:"Bento tile · “Pool Top-Down”",
+    prompt:"Editorial top-down drone photograph of a luxury Rajasthan resort infinity pool, perfectly symmetrical cream tiles around still turquoise water, two white loungers casting long golden-hour shadows, a single frangipani flower floating in the pool, magazine travel photography, no logos, no text. Aspect ratio: 3:2." },
+  { group:"Resorts — Bento", file:"gen/ind-resorts-b7.webp", ar:"1:1", where:"Bento tile · “Hammock”",
+    prompt:"Square editorial photograph of a single cream-linen hammock strung between two palm trees at a Rajasthan resort, soft late-afternoon light dappling through leaves, distant lake out of focus, no people, a warm calm magazine travel mood, no logos, no text. Aspect ratio: 1:1." },
+  { group:"Resorts — Bento", file:"gen/ind-resorts-b8.webp", ar:"1:1", where:"Bento tile · “Spa Stones”",
+    prompt:"Square macro editorial photograph of a stack of warm spa stones on a cream stone tray with two frangipani petals, a single drop of golden oil mid-fall, soft directional light, navy ambient backdrop, magazine wellness photography, no logos, no text. Aspect ratio: 1:1." },
+
+  // ============ RESTAURANTS — BENTO ============
+  { group:"Restaurants — Bento", file:"gen/ind-restaurants-b1.webp", ar:"1:1", where:"Bento tile · “Plate 01”",
+    prompt:"Square editorial food photograph of a single Indian thali on a brass plate, overhead composition, saffron rice scattered with rose petals, navy ceramic katoris arranged around it, soft warm side light, magazine food photography, no logos, no text. Aspect ratio: 1:1." },
+  { group:"Restaurants — Bento", file:"gen/ind-restaurants-b2.webp", ar:"1:1", where:"Bento tile · “Plate 02”",
+    prompt:"Square editorial food photograph of a single dessert plate at a luxury Jaipur restaurant, deconstructed kulfi with rose petals and pistachio dust, cream ceramic, edible gold leaf, soft warm overhead light, magazine pastry photography, no logos, no text. Aspect ratio: 1:1." },
+  { group:"Restaurants — Bento", file:"gen/ind-restaurants-b3.webp", ar:"4:5", where:"Bento tile · “Chef”",
+    prompt:"Editorial portrait of an Indian chef in a dark navy chef coat in the open kitchen of a luxury Jaipur restaurant, focused eyes down on hands plating with tweezers, warm pendant light overhead, soft steam rising, magazine food editorial, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Restaurants — Bento", file:"gen/ind-restaurants-b4.webp", ar:"4:5", where:"Bento tile · “Cocktail”",
+    prompt:"Editorial cocktail photograph at a luxury Jaipur restaurant, a hand pouring an amber cocktail into a coupe glass, a single ice sphere mid-drop, warm pendant light, deep navy backdrop, brass-edge bar surface, premium spirits magazine quality, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Restaurants — Bento", file:"gen/ind-restaurants-b5.webp", ar:"1:1", where:"Bento tile · “Plate 03”",
+    prompt:"Square editorial food photograph of a single steaming biryani in a sealed brass handi being opened by a hand, rising steam catching warm side light, navy linen tablecloth, magazine food photography, no logos, no text. Aspect ratio: 1:1." },
+  { group:"Restaurants — Bento", file:"gen/ind-restaurants-b6.webp", ar:"1:1", where:"Bento tile · “Plate 04”",
+    prompt:"Square editorial food photograph of a single butter-naan with a hand tearing it, melted ghee glistening, warm directional light, cream stoneware plate, navy ambient backdrop, magazine food photography, no logos, no text. Aspect ratio: 1:1." },
+  { group:"Restaurants — Bento", file:"gen/ind-restaurants-b7.webp", ar:"16:9", where:"Bento tile · “Room Mood”",
+    prompt:"Editorial wide of an intimate Jaipur fine-dining room at dusk, candle-lit tables, brass pendants, deep navy walls with a cream textile feature, two staff in soft motion blur, a golden warmth across the room, magazine restaurant photography, no logos, no text. Aspect ratio: 16:9." },
+  { group:"Restaurants — Bento", file:"gen/ind-restaurants-b8.webp", ar:"9:16", where:"Bento tile · “Reel” · vertical",
+    prompt:"Vertical reel still inside a luxury Jaipur restaurant, a slow tracking shot toward a steaming pass with a chef plating in the soft-focus background, warm pendant lights overhead, anamorphic premium feel, no logos, no text. Aspect ratio: 9:16." },
+  { group:"Restaurants — Bento", file:"gen/ind-restaurants-b9.webp", ar:"3:2", where:"Bento tile · “Pass”",
+    prompt:"Editorial photograph of a busy restaurant pass at a luxury Jaipur kitchen, three cream stoneware plates ready under warm heat lamps, a chef’s hand reaching in to garnish with edible flowers, motion blur on a server behind, magazine food photography, no logos, no text. Aspect ratio: 3:2." },
+
+  // ============ GYMS — BENTO ============
+  { group:"Gyms — Bento", file:"gen/ind-gyms-b1.webp", ar:"4:5", where:"Bento tile · “Lift Floor”",
+    prompt:"Editorial high-contrast gym photograph of a Jaipur fitness studio lift floor, a single athlete mid-deadlift, hard side light spilling across textured concrete walls, sweat catching the rim light, deep shadows with a warm gold rim, navy-black palette, anthem campaign feel, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Gyms — Bento", file:"gen/ind-gyms-b2.webp", ar:"16:9", where:"Bento tile · “Studio Wide”",
+    prompt:"Editorial wide of a modern Jaipur gym studio at dawn, racks of weights perfectly arranged, hard side light through skylights creating dramatic shadows, a single trainer chalking hands in mid-frame, navy-black palette with brass accents, magazine fitness photography, no logos, no text. Aspect ratio: 16:9." },
+  { group:"Gyms — Bento", file:"gen/ind-gyms-b3.webp", ar:"1:1", where:"Bento tile · “Kettlebell”",
+    prompt:"Square macro editorial gym photograph of a single black kettlebell on a textured concrete floor, a single chalk handprint nearby, hard side light, deep shadows, gold rim light, premium fitness brand mood, no logos, no text. Aspect ratio: 1:1." },
+  { group:"Gyms — Bento", file:"gen/ind-gyms-b4.webp", ar:"3:2", where:"Bento tile · “Rower Line”",
+    prompt:"Editorial wide of a line of rowing machines in a Jaipur gym, four athletes mid-stroke in synchronised motion, hard overhead light pooling on each station, deep navy-black studio, gold rim from a single window, anthem campaign feel, no logos, no text. Aspect ratio: 3:2." },
+  { group:"Gyms — Bento", file:"gen/ind-gyms-b5.webp", ar:"9:16", where:"Bento tile · “Sprint Reel” · vertical",
+    prompt:"Vertical reel still of a Jaipur gym sprinter pushing through a heavy sled across a textured concrete floor, hard side light catching sweat and chalk dust, a gold rim highlight, deep shadows, anamorphic premium fitness reel, no logos, no text. Aspect ratio: 9:16." },
+  { group:"Gyms — Bento", file:"gen/ind-gyms-b6.webp", ar:"4:5", where:"Bento tile · “Trainer Mark”",
+    prompt:"Editorial portrait of an Indian fitness trainer in his late twenties, navy tank top, chalk-dusted hands resting on a barbell, hard side light catching defined shoulders, a neutral confident expression, deep shadow backdrop, magazine fitness profile photography, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Gyms — Bento", file:"gen/ind-gyms-b7.webp", ar:"16:9", where:"Bento tile · “Anthem Frame”",
+    prompt:"Cinematic film still for a gym anthem ad, slow-motion sweat droplet mid-air with an athlete blurred in the background lifting heavy, hard rim light, deep navy-black studio, a single gold accent, premium fitness brand campaign mood, no logos, no text. Aspect ratio: 16:9." },
+  { group:"Gyms — Bento", file:"gen/ind-gyms-b8.webp", ar:"21:9", where:"Bento tile · “Floor Pano” (5:1 ultra-wide — use 21:9)",
+    prompt:"Ultra-wide panoramic editorial photograph of a Jaipur gym training floor, the full length of equipment perfectly aligned, hard side light raking across textured concrete, a single athlete mid-rep in the centre of frame, deep navy-black palette with gold rim accents, magazine fitness brand cover, no logos, no text. Aspect ratio: 21:9." },
+
+  // ============ PROJECTS — COVERS & ALTS ============
+  { group:"Projects — The Aurum Hotel", file:"gen/proj-the-aurum-hotel-cover.webp", ar:"4:5", where:"Work scrolly + Work detail page · cover",
+    prompt:"Editorial cover photograph for The Aurum Hotel brand film, a luxury Jaipur hotel exterior at blue hour, cream sandstone façade with brass uplighting on each arched window, a single guest stepping out of a soft-focus car at the porte-cochère, navy sky above, magazine hospitality cover, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — The Aurum Hotel", file:"gen/proj-the-aurum-hotel-alt.webp", ar:"4:5", where:"Work scrolly · right-pane secondary frame",
+    prompt:"Editorial photograph of The Aurum Hotel suite, a perfectly composed luxury room at dusk, brass pendant glow over a cream linen bed with a single navy throw, a framed Pichwai painting on the cream wall, soft warm key light, magazine hospitality photography, no logos, no text. Aspect ratio: 4:5." },
+
+  { group:"Projects — Solace Spa Resort", file:"gen/proj-solace-spa-resort-cover.webp", ar:"4:5", where:"Work scrolly + Work detail · cover",
+    prompt:"Editorial cover photograph for Solace Spa Resort destination film, a luxury Rajasthan resort villa at golden hour, an infinity pool flowing toward distant Aravalli hills, soft warm light raking across cream stone, a single white sun-lounger casting a long shadow, magazine travel cover, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — Solace Spa Resort", file:"gen/proj-solace-spa-resort-alt.webp", ar:"4:5", where:"Work scrolly · alt frame",
+    prompt:"Editorial photograph of a Solace Spa Resort treatment room, cream stone walls with a carved jali screen filtering golden-hour light onto a single white massage table with frangipani petals, brass bowl with warm oil, magazine wellness photography, no logos, no text. Aspect ratio: 4:5." },
+
+  { group:"Projects — Bistro Maharaj", file:"gen/proj-bistro-maharaj-cover.webp", ar:"4:5", where:"Work scrolly + Work detail · cover",
+    prompt:"Editorial cover photograph for Bistro Maharaj menu photography, a single hero overhead plate of a Jaipur thali on a brass platter scattered with rose petals, navy ceramic katoris arranged around, warm side light, deep blue tablecloth, magazine food cover, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — Bistro Maharaj", file:"gen/proj-bistro-maharaj-alt.webp", ar:"4:5", where:"Work scrolly · alt frame",
+    prompt:"Editorial photograph of the Bistro Maharaj dining room at dusk, warm pendant lights over set tables, deep navy walls, cream linens, brass cutlery, a single guest in soft motion blur, magazine restaurant photography, no logos, no text. Aspect ratio: 4:5." },
+
+  { group:"Projects — Iron Den Gym", file:"gen/proj-iron-den-gym-cover.webp", ar:"4:5", where:"Work scrolly + Work detail · cover",
+    prompt:"Editorial cover photograph for Iron Den Gym hype film, a hard side-lit athlete mid-deadlift in a Jaipur fitness studio, sweat catching gold rim light against a deep navy-black backdrop, chalk dust in the air, premium fitness brand campaign cover, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — Iron Den Gym", file:"gen/proj-iron-den-gym-alt.webp", ar:"4:5", where:"Work scrolly · alt frame",
+    prompt:"Editorial wide of the Iron Den Gym training floor at dawn, racks of weights perfectly arranged, hard side light through skylights, a single trainer chalking hands, navy-black palette with gold accents, magazine fitness photography, no logos, no text. Aspect ratio: 4:5." },
+
+  { group:"Projects — Skyline Residences", file:"gen/proj-skyline-residences-cover.webp", ar:"4:5", where:"Services experience · Films pane + Work scrolly cover",
+    prompt:"Editorial cover photograph for Skyline Residences property film, a premium residential tower in Mansarovar Jaipur at blue-hour twilight, warm interior lights through every floor, cream sandstone façade, soft fog at street level, navy dusk sky with a single drifting cloud, magazine real-estate cover, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — Skyline Residences", file:"gen/proj-skyline-residences-alt.webp", ar:"4:5", where:"Services experience · Films pane · alt + Work scrolly",
+    prompt:"Editorial photograph of a Skyline Residences flat living room, soft cool north light through floor-to-ceiling windows, cream linen sofa with a navy throw, low travertine coffee table, magazine architecture photography, no logos, no text. Aspect ratio: 4:5." },
+
+  { group:"Projects — The Atrium", file:"gen/proj-atrium-cover.webp", ar:"4:5", where:"Services experience · Websites pane + Work scrolly cover",
+    prompt:"Editorial cover photograph for The Atrium 3D scrollytelling project, a luxury Jaipur three-bedroom flat in the living-dining transition at golden hour, warm directional sunlight raking across a cream marble floor, a low coffee table with a brass tray, a double-height void overhead, magazine architecture photography, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — The Atrium", file:"gen/proj-atrium-alt.webp", ar:"4:5", where:"Work scrolly · alt frame",
+    prompt:"Editorial photograph of The Atrium master suite at dusk, warm pendant glow over a cream linen bed with a navy throw, framed art on the cream wall, soft window light, premium real-estate magazine photography, no logos, no text. Aspect ratio: 4:5." },
+
+  { group:"Projects — Casa Bellavista", file:"gen/proj-casa-bellavista-cover.webp", ar:"4:5", where:"Work scrolly + Work detail · cover",
+    prompt:"Editorial cover photograph for Casa Bellavista builder website, exterior of a premium Jaipur villa cluster at golden hour, cream sandstone façades with brass house numbers, landscaped front gardens, a single olive tree in foreground soft focus, navy-tinged dusk sky, magazine real-estate cover, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — Casa Bellavista", file:"gen/proj-casa-bellavista-alt.webp", ar:"4:5", where:"Work scrolly · alt frame",
+    prompt:"Editorial photograph of a Casa Bellavista villa interior, double-height living room with a cream sofa, dark wood beams overhead, warm directional sunlight, a single artwork above the fireplace, magazine architecture photography, no logos, no text. Aspect ratio: 4:5." },
+
+  { group:"Projects — Rajwada Heights", file:"gen/proj-rajwada-heights-cover.webp", ar:"4:5", where:"Work scrolly + Work detail · cover",
+    prompt:"Editorial cover photograph for Rajwada Heights still-photography portfolio, a heritage-modern apartment building exterior on Civil Lines Jaipur at golden hour, cream sandstone with traditional jharokha balconies, a single Banyan tree in foreground soft focus, navy dusk sky, magazine architecture cover, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — Rajwada Heights", file:"gen/proj-rajwada-heights-alt.webp", ar:"4:5", where:"Work scrolly · alt frame",
+    prompt:"Editorial interior photograph of a Rajwada Heights apartment, a traditional jharokha window casting jali-patterned shadows on a cream marble floor, low traditional seating with navy bolsters, a brass diya in soft focus, magazine interior design photography, no logos, no text. Aspect ratio: 4:5." },
+
+  { group:"Projects — Lake View Villas", file:"gen/proj-lake-view-villas-cover.webp", ar:"4:5", where:"Work scrolly + Work detail · cover",
+    prompt:"Editorial cover photograph for Lake View Villas drone-led property film, an aerial wide of a villa cluster on the edge of a Rajasthan lake at golden hour, terracotta roof tiles catching warm light, the lake reflecting cream villas, distant Aravalli silhouettes, magazine real-estate cover, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — Lake View Villas", file:"gen/proj-lake-view-villas-alt.webp", ar:"4:5", where:"Work scrolly · alt frame",
+    prompt:"Editorial photograph of a Lake View Villas terrace at sunset, low cream lounge furniture facing a still lake with distant hills, soft warm light, a single brass lantern, navy throw pillows, magazine real-estate photography, no logos, no text. Aspect ratio: 4:5." },
+
+  { group:"Projects — The Pinnacle", file:"gen/proj-the-pinnacle-cover.webp", ar:"4:5", where:"Services experience · Tours pane + Work scrolly cover",
+    prompt:"Editorial cover photograph for The Pinnacle penthouse 3D tour, a mobile-first vertical interior of a luxury Jaipur penthouse, floor-to-ceiling windows showing a city skyline at golden hour, a cream linen sofa, low travertine coffee table, brass accents, magazine architecture cover, no logos, no text. Aspect ratio: 4:5." },
+  { group:"Projects — The Pinnacle", file:"gen/proj-the-pinnacle-alt.webp", ar:"4:5", where:"Work scrolly · alt frame",
+    prompt:"Editorial photograph of The Pinnacle penthouse rooftop terrace at twilight, a plunge pool reflecting the navy sky, two cream loungers, the distant Jaipur skyline with warm city lights, premium real-estate magazine photography, no logos, no text. Aspect ratio: 4:5." },
+];
+
+// ---------- render ----------
+const grid = document.getElementById('grid');
+const chipsEl = document.getElementById('chips');
+const search = document.getElementById('search');
+const toast = document.getElementById('toast');
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
+const resetBtn = document.getElementById('resetBtn');
+
+const STORE_KEY = 'nirman-asset-prompts-done-v1';
+let DONE = {};
+try { DONE = JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; } catch { DONE = {}; }
+
+const TOTAL = DATA.length;
+const GROUPS = [...new Set(DATA.map(d => d.group))];
+let activeGroup = "All";
+let query = "";
+
+function persist(){ localStorage.setItem(STORE_KEY, JSON.stringify(DONE)); }
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=> toast.classList.remove('show'), 1500);
+}
+
+async function copy(text, btn, label){
+  try{
+    await navigator.clipboard.writeText(text);
+    if (btn){
+      btn.classList.add('copied');
+      setTimeout(()=> btn.classList.remove('copied'), 1300);
+    }
+    showToast(label || 'Copied');
+  } catch {
+    showToast('Copy failed — long-press to copy');
+  }
+}
+
+function updateProgress(){
+  const done = Object.values(DONE).filter(Boolean).length;
+  progressLabel.innerHTML = `<strong>${done}</strong> / ${TOTAL}`;
+  progressFill.style.width = ((done/TOTAL)*100).toFixed(1) + '%';
+}
+
+function makeCard(item, idx){
+  const card = document.createElement('article');
+  card.className = 'card';
+  if (DONE[item.file]) card.classList.add('is-done');
+  card.dataset.group = item.group;
+  card.dataset.search = (item.file + ' ' + item.prompt + ' ' + item.where).toLowerCase();
+
+  const head = document.createElement('div'); head.className = 'card-head';
+  const file = document.createElement('button'); file.type='button'; file.className='filename'; file.textContent = item.file;
+  file.addEventListener('click', ()=> copy(item.file, null, 'Filename copied'));
+  const ar = document.createElement('span'); ar.className = 'ar'; ar.textContent = item.ar;
+  head.append(file, ar);
+
+  const where = document.createElement('p'); where.className = 'where'; where.textContent = '↳ ' + item.where;
+
+  const prompt = document.createElement('div'); prompt.className = 'prompt'; prompt.textContent = item.prompt;
+
+  const actions = document.createElement('div'); actions.className = 'actions';
+
+  const copyBtn = document.createElement('button');
+  copyBtn.type = 'button';
+  copyBtn.className = 'btn';
+  copyBtn.innerHTML = `<span class="lbl">Copy prompt</span><span class="ok">✓ Copied</span>`;
+  copyBtn.addEventListener('click', ()=> copy(item.prompt, copyBtn, 'Prompt copied'));
+
+  const doneBtn = document.createElement('button');
+  doneBtn.type = 'button';
+  doneBtn.className = 'btn secondary done-toggle' + (DONE[item.file] ? ' is-on' : '');
+  doneBtn.textContent = DONE[item.file] ? '✓ Done' : 'Mark done';
+  doneBtn.addEventListener('click', ()=> {
+    DONE[item.file] = !DONE[item.file];
+    persist();
+    doneBtn.textContent = DONE[item.file] ? '✓ Done' : 'Mark done';
+    doneBtn.classList.toggle('is-on', !!DONE[item.file]);
+    card.classList.toggle('is-done', !!DONE[item.file]);
+    updateProgress();
+  });
+
+  actions.append(copyBtn, doneBtn);
+  card.append(head, where, prompt, actions);
+  return card;
+}
+
+function render(){
+  grid.innerHTML = '';
+  const groups = (activeGroup === 'All') ? GROUPS : [activeGroup];
+  let visibleCount = 0;
+  for (const g of groups){
+    const items = DATA.filter(d => d.group === g && (!query || (d.file+' '+d.prompt+' '+d.where).toLowerCase().includes(query)));
+    if (!items.length) continue;
+    const section = document.createElement('section'); section.className = 'group';
+    const head = document.createElement('div'); head.className = 'group-head';
+    const h2 = document.createElement('h2'); h2.className = 'group-title'; h2.textContent = g;
+    const meta = document.createElement('span'); meta.className = 'group-meta'; meta.textContent = `${items.length} image${items.length===1?'':'s'}`;
+    head.append(h2, meta);
+    section.append(head);
+    items.forEach((it,i)=> section.append(makeCard(it,i)));
+    grid.append(section);
+    visibleCount += items.length;
+  }
+  if (!visibleCount){
+    const empty = document.createElement('p'); empty.style.cssText='padding:40px 10px;text-align:center;color:var(--ink-soft);font-style:italic';
+    empty.textContent = 'No prompts match your search.';
+    grid.append(empty);
+  }
+}
+
+function renderChips(){
+  chipsEl.innerHTML = '';
+  const groups = ['All', ...GROUPS];
+  for (const g of groups){
+    const b = document.createElement('button');
+    b.type='button'; b.className='chip'; b.textContent=g;
+    b.setAttribute('aria-pressed', g===activeGroup ? 'true' : 'false');
+    b.addEventListener('click', ()=>{
+      activeGroup = g;
+      chipsEl.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.textContent===g ? 'true':'false'));
+      render();
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+    chipsEl.append(b);
+  }
+}
+
+search.addEventListener('input', e => {
+  query = e.target.value.trim().toLowerCase();
+  render();
+});
+
+resetBtn.addEventListener('click', () => {
+  if (!confirm('Clear all "done" marks?')) return;
+  DONE = {};
+  persist();
+  updateProgress();
+  render();
+});
+
+renderChips();
+render();
+updateProgress();
+</script>
+</body>
+</html>
