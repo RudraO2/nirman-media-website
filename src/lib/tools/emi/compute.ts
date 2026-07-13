@@ -48,6 +48,16 @@ export function emiForRate(principal: number, monthlyRate: number, n: number): n
   return (principal * monthlyRate * f) / (f - 1);
 }
 
+/** Inverse of emiForRate: the principal a given flat EMI supports at monthly
+ * rate r over n months. Used by loan-eligibility (AD-4 reuse — the two
+ * formulas must never drift apart, so this stays the single source). */
+export function principalForEmi(emi: number, monthlyRate: number, n: number): number {
+  if (n <= 0 || emi <= 0) return 0;
+  if (monthlyRate <= 0) return emi * n;
+  const f = Math.pow(1 + monthlyRate, n);
+  return (emi * (f - 1)) / (monthlyRate * f);
+}
+
 /** Reduce a balance to zero and return months elapsed + total interest paid. */
 function amortizeToZero(
   principal: number,

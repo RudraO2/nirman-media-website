@@ -123,6 +123,30 @@ export const tools: ToolMeta[] = [
     phase: 1,
   },
   {
+    slug: "loan-eligibility",
+    title: "Loan Eligibility Calculator",
+    category: "finance",
+    oneLiner:
+      "Find out how large a home loan your income can realistically support, before you apply.",
+    seo: {
+      h1: "Loan Eligibility Calculator",
+      description:
+        "Estimate the maximum home loan your net monthly income supports, using the standard FOIR (Fixed Obligation to Income Ratio) method lenders use — factoring in your existing EMIs, interest rate and tenure.",
+      faq: [
+        {
+          q: "How much home loan can I get based on my salary?",
+          a: "Lenders typically cap your total EMI obligations — this loan plus any existing ones — at a percentage of your net monthly income, commonly called FOIR (Fixed Obligation to Income Ratio), usually 40–50% depending on the bank and your income band. This calculator applies your own FOIR assumption to your income and existing EMIs, then works out the loan amount that fits in the remaining gap at your chosen rate and tenure.",
+        },
+        {
+          q: "Is this the exact amount a bank will approve?",
+          a: "No — it's an estimate using the standard FOIR method. Actual sanction also depends on your credit score, employment type, co-applicant income, age-based tenure caps, and each lender's specific policy. Treat this as a starting estimate for what to shop for, not a loan offer.",
+        },
+      ],
+    },
+    related: ["emi", "rent-vs-buy"],
+    phase: 1,
+  },
+  {
     slug: "vastu-score",
     title: "Vastu Score Checker",
     category: "vastu",
