@@ -52,7 +52,7 @@ export const tools: ToolMeta[] = [
       ],
     },
     related: ["emi"],
-    phase: 2,
+    phase: 1,
   },
   {
     slug: "stamp-duty-rj",
