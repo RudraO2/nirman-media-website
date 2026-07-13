@@ -99,6 +99,30 @@ export const tools: ToolMeta[] = [
     phase: 1,
   },
   {
+    slug: "rental-yield",
+    title: "Rental Yield Calculator",
+    category: "finance",
+    oneLiner:
+      "See your property's real rental yield — gross, net after real running costs, and cash-on-cash return if you're financing it.",
+    seo: {
+      h1: "Rental Yield Calculator",
+      description:
+        "Calculate gross and net rental yield on an Indian property — factoring in property tax, maintenance, society charges and vacancy — plus cash-on-cash return if you finance it with a home loan. See how your number compares to India's typical rental yield range.",
+      faq: [
+        {
+          q: "What's the difference between gross and net rental yield?",
+          a: "Gross yield is simply annual rent divided by property price. Net yield subtracts the real annual running costs — property tax, maintenance, society charges, and a vacancy allowance — before dividing, so it reflects what an owner actually keeps. Net yield is always lower than gross, and it's the more honest number for comparing an income property.",
+        },
+        {
+          q: "Why are Indian residential rental yields so low?",
+          a: "Gross yields of roughly 2–3.5% are commonly cited for Indian residential property — an informal, widely-varying market figure, not an official statistic. Compare your own number above and adjust the city- and property-specific assumptions to see how it changes for you.",
+        },
+      ],
+    },
+    related: ["emi", "rent-vs-buy"],
+    phase: 1,
+  },
+  {
     slug: "vastu-score",
     title: "Vastu Score Checker",
     category: "vastu",
