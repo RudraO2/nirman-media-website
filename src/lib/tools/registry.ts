@@ -72,7 +72,7 @@ export const tools: ToolMeta[] = [
       ],
     },
     related: ["emi", "area-converter"],
-    phase: 2,
+    phase: 1,
   },
   {
     slug: "vastu-score",
