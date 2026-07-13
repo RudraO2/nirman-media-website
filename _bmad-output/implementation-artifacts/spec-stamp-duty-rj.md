@@ -5,7 +5,7 @@ created: '2026-07-13'
 status: 'done'
 review_loop_iteration: 0
 followup_review_recommended: false
-final_revision: 'PENDING_COMMIT'
+final_revision: 'c667f3cb83377bfa24770621c91c2fca7b05da29'
 baseline_revision: '74a44ff2ec0010d5716ce117d5178e20892dfbdc'
 context: [
   '{project-root}/_bmad-output/planning-artifacts/briefs/brief-nirman-media-tools-hub-2026-07-10/addendum.md',
