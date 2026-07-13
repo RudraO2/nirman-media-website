@@ -2,10 +2,11 @@
 title: 'Rental Yield Calculator (Tool #5) — Nirman Tools Hub'
 type: 'feature'
 created: '2026-07-13'
-status: 'in-review'
+status: 'done'
 review_loop_iteration: 0
 followup_review_recommended: true
 baseline_revision: '9961f2d5d88e68464c1901cc1dc67a7c4c872125'
+final_revision: '3b9dfa12be6ea8680e68eaecfc7b9b48d5464db4'
 context: [
   '{project-root}/_bmad-output/planning-artifacts/architecture/architecture-nirman-tools-hub-2026-07-10/ARCHITECTURE-SPINE.md',
   '{project-root}/_bmad-output/implementation-artifacts/spec-rent-vs-buy.md',
