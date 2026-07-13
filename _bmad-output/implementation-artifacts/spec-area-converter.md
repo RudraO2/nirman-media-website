@@ -2,10 +2,11 @@
 title: 'Area Unit Converter (Tool #2) — Nirman Tools Hub'
 type: 'feature'
 created: '2026-07-13'
-status: 'in-review'
+status: 'done'
 review_loop_iteration: 0
 followup_review_recommended: true
 baseline_revision: 'eeb3cfb4393c5aececb3cc1520a69a03fdb31e1a'
+final_revision: '15a654d0cd5546b84b6277d07daa9bbb97f47943'
 context: [
   '{project-root}/_bmad-output/planning-artifacts/briefs/brief-nirman-media-tools-hub-2026-07-10/addendum.md',
   '{project-root}/_bmad-output/planning-artifacts/architecture/architecture-nirman-tools-hub-2026-07-10/ARCHITECTURE-SPINE.md',
