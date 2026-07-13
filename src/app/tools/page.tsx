@@ -52,6 +52,12 @@ export default function ToolsIndexPage() {
               <span className="font-heading text-ink text-2xl">Free</span>
               <span className="font-body text-ink/55 text-sm">no sign-up, ever</span>
             </li>
+            <li className="flex items-baseline gap-2">
+              <span className="font-heading text-ink text-2xl">Private</span>
+              <span className="font-body text-ink/55 text-sm">
+                runs in your browser — nothing sent, nothing stored
+              </span>
+            </li>
           </ul>
         </div>
       </header>

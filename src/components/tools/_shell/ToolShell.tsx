@@ -47,6 +47,12 @@ export function ToolShell({
             >
               All tools
             </Link>
+            <span aria-hidden className="text-line ml-1">
+              /
+            </span>
+            <span className="eyebrow text-ink/40" title="Runs entirely in your browser — nothing is sent or stored">
+              Private — nothing stored
+            </span>
           </div>
           <h1
             className="font-heading text-ink leading-[1.0]"
