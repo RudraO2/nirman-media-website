@@ -2,9 +2,10 @@
 title: 'Rent vs. Buy Calculator (Tool #4) — Nirman Tools Hub'
 type: 'feature'
 created: '2026-07-13'
-status: 'in-review'
+status: 'done'
 review_loop_iteration: 0
 followup_review_recommended: true
+final_revision: '073393d0c57ee1a14163805654eaa81c7a5d3888'
 baseline_revision: '851810249d5c52198e8a84881014af54a078ef96'
 context: [
   '{project-root}/_bmad-output/planning-artifacts/briefs/brief-nirman-media-tools-hub-2026-07-10/brief.md',
