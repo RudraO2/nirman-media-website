@@ -147,6 +147,30 @@ export const tools: ToolMeta[] = [
     phase: 1,
   },
   {
+    slug: "brokerage",
+    title: "Brokerage Calculator",
+    category: "finance",
+    oneLiner:
+      "Work out the brokerage due on a sale or rental deal — with GST, the way brokers actually quote it.",
+    seo: {
+      h1: "Brokerage Calculator",
+      description:
+        "Calculate real estate brokerage on a sale (typically 1–2% of property value) or rental deal (typically one month's rent), with an optional 18% GST — built for Indian brokers and clients who want the number before the deal closes.",
+      faq: [
+        {
+          q: "How much brokerage do real estate agents charge in India?",
+          a: "It's negotiated, not fixed by law — but common market practice is roughly 1–2% of the property value on a sale, and one month's rent (sometimes half a month) on a rental. This calculator uses those conventions as adjustable defaults, not statutory rates.",
+        },
+        {
+          q: "Does GST apply to real estate brokerage?",
+          a: "Yes, at 18%, but only when the broker or firm is GST-registered. Toggle it off if yours isn't.",
+        },
+      ],
+    },
+    related: ["emi", "rental-yield"],
+    phase: 1,
+  },
+  {
     slug: "vastu-score",
     title: "Vastu Score Checker",
     category: "vastu",
