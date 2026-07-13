@@ -75,6 +75,30 @@ export const tools: ToolMeta[] = [
     phase: 1,
   },
   {
+    slug: "rent-vs-buy",
+    title: "Rent vs. Buy Calculator",
+    category: "finance",
+    oneLiner:
+      "See whether renting or buying wins for your numbers — with a clear breakeven year, not just a wall of totals.",
+    seo: {
+      h1: "Rent vs. Buy Calculator",
+      description:
+        "Compare the true long-term cost of renting versus buying a home in India — EMI, property tax, maintenance and resale equity against rent and the return you'd earn investing what you save. Get a plain breakeven year, not just numbers.",
+      faq: [
+        {
+          q: "Is buying always better than renting long-term?",
+          a: "No — it depends entirely on the inputs you give it: home appreciation, rent growth, and the return you'd earn investing what buying doesn't cost you. This tool runs the math on your own numbers rather than assuming an answer either way.",
+        },
+        {
+          q: "Why can renting-and-investing beat buying in the math, even over many years?",
+          a: "Indian residential rental yields are typically low — annual rent is often only around 2–3.5% of a property's value — so the money you don't put into a down payment and EMI can compound faster than the home appreciates, in some scenarios. Adjust the assumptions to your own city and property to see how it changes for you.",
+        },
+      ],
+    },
+    related: ["emi"],
+    phase: 1,
+  },
+  {
     slug: "vastu-score",
     title: "Vastu Score Checker",
     category: "vastu",
