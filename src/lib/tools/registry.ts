@@ -171,6 +171,30 @@ export const tools: ToolMeta[] = [
     phase: 1,
   },
   {
+    slug: "property-tax",
+    title: "Property Tax Calculator",
+    category: "legal",
+    oneLiner:
+      "Work out your net annual property tax — rebate and cess included — from the figures on your own bill.",
+    seo: {
+      h1: "Property Tax Calculator",
+      description:
+        "Calculate net annual property tax from the annual value and rate on your municipal bill, including any early-payment rebate and additional cess — works for any Indian municipal corporation since you supply the local figures.",
+      faq: [
+        {
+          q: "Why doesn't this use Jaipur's exact property tax rates?",
+          a: "Every Indian municipal corporation — Jaipur Nagar Nigam included — sets its own annual-value method, rate slabs and rebate policy, and these change by notification. Rather than guess at figures that could go stale, this calculator takes the annual value and rate straight from your own bill or municipal portal and does the rebate/cess arithmetic exactly.",
+        },
+        {
+          q: "What is an early-payment rebate?",
+          a: "Many municipal corporations offer a percentage discount on the base tax if you pay before a certain date each year. Check your corporation's current notification for the exact rate and deadline, then enter it here.",
+        },
+      ],
+    },
+    related: ["stamp-duty-rj"],
+    phase: 1,
+  },
+  {
     slug: "vastu-score",
     title: "Vastu Score Checker",
     category: "vastu",

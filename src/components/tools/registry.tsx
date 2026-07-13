@@ -6,6 +6,7 @@ import { RentVsBuyTool } from "./rent-vs-buy/Tool";
 import { RentalYieldTool } from "./rental-yield/Tool";
 import { LoanEligibilityTool } from "./loan-eligibility/Tool";
 import { BrokerageTool } from "./brokerage/Tool";
+import { PropertyTaxTool } from "./property-tax/Tool";
 
 // Maps a tool slug to its interactive client component. This is the ONE place a
 // new tool's UI is wired in (alongside its registry entry + module). The dynamic
@@ -19,4 +20,5 @@ export const toolComponents: Record<string, ComponentType> = {
   "rental-yield": RentalYieldTool,
   "loan-eligibility": LoanEligibilityTool,
   brokerage: BrokerageTool,
+  "property-tax": PropertyTaxTool,
 };
