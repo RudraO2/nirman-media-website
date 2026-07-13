@@ -32,13 +32,14 @@ export function ToolShell({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
 
-      {/* Header — the "light brand": logo corner + eyebrow, tool title as H1 */}
-      <header className="border-b border-line bg-cream px-6 pt-28 pb-10 md:px-10 md:pt-32 md:pb-14">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="mb-6 flex items-center gap-2.5">
-            <LogoMark size={26} className="rounded-sm" />
-            <span className="eyebrow text-ink/50">Nirman Tools</span>
-            <span aria-hidden className="text-line">
+      {/* Header — compact utility strip, not a landing-page hero. The tool
+          itself is the page; this is just enough chrome to orient + trust. */}
+      <header className="border-b border-line bg-cream px-6 pt-20 pb-5 md:px-10 md:pt-24 md:pb-6">
+        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <div className="flex min-w-0 items-center gap-2.5">
+            <LogoMark size={22} className="rounded-sm shrink-0" />
+            <span className="eyebrow text-ink/50 hidden sm:inline">Nirman Tools</span>
+            <span aria-hidden className="text-line hidden sm:inline">
               /
             </span>
             <Link
@@ -47,22 +48,19 @@ export function ToolShell({
             >
               All tools
             </Link>
-            <span aria-hidden className="text-line ml-1">
+            <span aria-hidden className="text-line">
               /
             </span>
-            <span className="eyebrow text-ink/40" title="Runs entirely in your browser — nothing is sent or stored">
-              Private — nothing stored
-            </span>
+            <h1 className="font-heading text-ink truncate text-base md:text-lg">
+              {tool.seo.h1}
+            </h1>
           </div>
-          <h1
-            className="font-heading text-ink leading-[1.0]"
-            style={{ fontSize: "clamp(30px, 4.5vw, 60px)" }}
+          <span
+            className="eyebrow text-ink/40 shrink-0"
+            title="Runs entirely in your browser — nothing is sent or stored"
           >
-            {tool.seo.h1}
-          </h1>
-          <p className="font-body text-ink/70 mt-4 max-w-2xl text-base md:text-lg">
-            {tool.oneLiner}
-          </p>
+            Private — nothing stored
+          </span>
         </div>
       </header>
 
