@@ -28,7 +28,20 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.lagSmoothing(0);
 
+    // Lazy media loading above pinned sections shifts layout after
+    // ScrollTrigger measures — refresh (debounced) when body height changes,
+    // otherwise pins snap instead of locking. Body height never changes
+    // mid-scroll, so this can't fire during a scrub.
+    let refreshTimer: number | undefined;
+    const ro = new ResizeObserver(() => {
+      window.clearTimeout(refreshTimer);
+      refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    ro.observe(document.body);
+
     return () => {
+      ro.disconnect();
+      window.clearTimeout(refreshTimer);
       cancelAnimationFrame(id);
       lenis.destroy();
       delete window.__lenis;

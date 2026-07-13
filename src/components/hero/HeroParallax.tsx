@@ -16,15 +16,23 @@ const TITLE_A_DELAY = 5.0;
 
 export function HeroParallax() {
   const root = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const durationRef = useRef(26);
   const lastSeekRef = useRef(0);
   const titleARef = useRef<HTMLHeadingElement>(null);
   const titleBRef = useRef<HTMLHeadingElement>(null);
   const titleCRef = useRef<HTMLHeadingElement>(null);
+  // Desktop only — phones get the static poster hero and never download
+  // the scrub video or create the pinned ScrollTrigger.
+  const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    setIsDesktop(window.matchMedia("(min-width: 768px)").matches);
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop) return;
     const v = videoRef.current;
     if (!v) return;
     const onMeta = () => {
@@ -34,7 +42,7 @@ export function HeroParallax() {
     if (v.readyState >= 1 && v.duration > 0) onMeta();
     else v.addEventListener("loadedmetadata", onMeta, { once: true });
     return () => v.removeEventListener("loadedmetadata", onMeta);
-  }, []);
+  }, [isDesktop]);
 
   useGSAP(
     () => {
@@ -64,10 +72,13 @@ export function HeroParallax() {
       };
 
       const tlA = buildFall(titleARef.current);
+      if (tlA) gsap.delayedCall(TITLE_A_DELAY, () => tlA.restart());
+
+      // Mobile: static poster hero — title A falls in once, no scrub.
+      if (!window.matchMedia("(min-width: 768px)").matches) return;
+
       const tlB = buildFall(titleBRef.current);
       const tlC = buildFall(titleCRef.current);
-
-      if (tlA) gsap.delayedCall(TITLE_A_DELAY, () => tlA.restart());
 
       const playedB = { v: false };
       const playedC = { v: false };
@@ -87,7 +98,13 @@ export function HeroParallax() {
           const dur = durationRef.current;
           if (!v || dur <= 0) return;
 
-          const tSec = state.p * dur;
+          let tSec = state.p * dur;
+          // Clamp to the buffered end so a fast scroll never seeks into
+          // un-downloaded video (decoder stall = visible jitter).
+          const buf = v.buffered;
+          if (buf.length) {
+            tSec = Math.min(tSec, Math.max(0, buf.end(buf.length - 1) - 0.05));
+          }
           if (Math.abs(tSec - lastSeekRef.current) > 0.016) {
             v.currentTime = tSec;
             lastSeekRef.current = tSec;
@@ -124,36 +141,53 @@ export function HeroParallax() {
   return (
     <section
       ref={root}
-      className="relative h-[1275vh] w-full bg-black"
+      className="relative h-[100svh] md:h-[1275vh] w-full bg-black"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
-        <video
-          ref={videoRef}
-          src={VIDEO_SRC}
-          poster={POSTER_SRC}
-          muted
-          playsInline
-          preload="auto"
-          disablePictureInPicture
-          className="absolute inset-0 h-full w-full object-cover"
+      <div className="sticky top-0 h-[100svh] md:h-screen w-full overflow-hidden bg-black">
+        <h1 className="sr-only">
+          Nirman Media — Make them stop. Make them feel. Make them book.
+        </h1>
+
+        {/* Poster is the base layer everywhere; the scrub video mounts on
+            desktop only and covers it once loaded. */}
+        <img
+          src={POSTER_SRC}
+          alt=""
           aria-hidden
+          fetchPriority="high"
+          className="absolute inset-0 h-full w-full object-cover"
         />
+        {isDesktop && (
+          <video
+            ref={videoRef}
+            src={VIDEO_SRC}
+            poster={POSTER_SRC}
+            muted
+            playsInline
+            preload="auto"
+            disablePictureInPicture
+            className="absolute inset-0 h-full w-full object-cover"
+            aria-hidden
+          />
+        )}
 
         <FallingTitle
           forwardRef={titleARef}
           text="Make Them Stop."
           initialOpacity={1}
         />
-        <FallingTitle
-          forwardRef={titleBRef}
-          text="Make Them Feel."
-          initialOpacity={0}
-        />
-        <FallingTitle
-          forwardRef={titleCRef}
-          text="Make Them Book."
-          initialOpacity={0}
-        />
+        <div className="hidden md:contents">
+          <FallingTitle
+            forwardRef={titleBRef}
+            text="Make Them Feel."
+            initialOpacity={0}
+          />
+          <FallingTitle
+            forwardRef={titleCRef}
+            text="Make Them Book."
+            initialOpacity={0}
+          />
+        </div>
       </div>
     </section>
   );
@@ -169,11 +203,11 @@ function FallingTitle({
   initialOpacity: number;
 }) {
   return (
-    <h1
+    <h2
       ref={forwardRef}
       aria-hidden
       className="absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2 z-10 font-heading font-bold text-white text-center leading-none will-change-transform pointer-events-none drop-shadow-[0_2px_18px_rgba(0,0,0,0.55)] whitespace-nowrap"
-      style={{ fontSize: "clamp(48px, 9vw, 144px)", opacity: initialOpacity }}
+      style={{ fontSize: "clamp(38px, 9vw, 144px)", opacity: initialOpacity }}
     >
       {text.split("").map((ch, i) => (
         <span key={i} className="inline-block overflow-visible">
@@ -182,6 +216,6 @@ function FallingTitle({
           </span>
         </span>
       ))}
-    </h1>
+    </h2>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PricingExperience } from "./PricingExperience";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/pricing/" },
   title: "Pricing — Nirman Media",
   description:
     "Transparent pricing for brand films, photography, 3D tours and websites. Starts from ₹45,000. Delivery in 5–14 days.",

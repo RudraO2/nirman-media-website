@@ -13,18 +13,11 @@ type Card = {
   tagline: string;
   cover: string;
   span: string;
+  // Full static Tailwind classes — built dynamically (`md:${ratio}`) the JIT
+  // never generates them and the md aspect silently disappears.
   ratio: string;
   from: "left" | "right" | "top" | "bottom";
   no: string;
-};
-
-const RATIO_CLASS: Record<string, string> = {
-  "16x9": "aspect-[16/9]",
-  "4x5": "aspect-[4/5]",
-  "3x2": "aspect-[3/2]",
-  "1x1": "aspect-square",
-  "9x16": "aspect-[9/16]",
-  "5x1": "aspect-[5/1]",
 };
 
 const FROM_MAP = {
@@ -40,8 +33,9 @@ const cards: Card[] = [
     label: industries[0].label,
     tagline: industries[0].tagline,
     cover: industries[0].cover,
-    span: "md:col-span-8 md:row-span-2",
-    ratio: "16x9",
+    span: "md:col-span-8 md:row-span-2 md:h-full",
+    // Fills the 2-row cell set by the 4/5 cards beside it.
+    ratio: "md:aspect-auto md:h-full",
     from: "right",
     no: "01",
   },
@@ -51,7 +45,7 @@ const cards: Card[] = [
     tagline: industries[1].tagline,
     cover: industries[1].cover,
     span: "md:col-span-4",
-    ratio: "4x5",
+    ratio: "md:aspect-[4/5]",
     from: "top",
     no: "02",
   },
@@ -61,7 +55,7 @@ const cards: Card[] = [
     tagline: industries[2].tagline,
     cover: industries[2].cover,
     span: "md:col-span-4",
-    ratio: "4x5",
+    ratio: "md:aspect-[4/5]",
     from: "bottom",
     no: "03",
   },
@@ -71,7 +65,7 @@ const cards: Card[] = [
     tagline: industries[3].tagline,
     cover: industries[3].cover,
     span: "md:col-span-6",
-    ratio: "3x2",
+    ratio: "md:aspect-[3/2]",
     from: "left",
     no: "04",
   },
@@ -81,7 +75,7 @@ const cards: Card[] = [
     tagline: industries[4].tagline,
     cover: industries[4].cover,
     span: "md:col-span-6",
-    ratio: "3x2",
+    ratio: "md:aspect-[3/2]",
     from: "right",
     no: "05",
   },
@@ -185,7 +179,6 @@ export function Industries() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 md:auto-rows-[minmax(180px,auto)] gap-3 md:gap-5">
           {cards.map((c) => {
-            const ratio = RATIO_CLASS[c.ratio] ?? "aspect-[3/2]";
             return (
               <Link
                 key={c.slug}
@@ -194,7 +187,7 @@ export function Industries() {
                 className={`group relative block overflow-hidden rounded-2xl bg-navy cursor-pointer ${c.span}`}
               >
                 <div
-                  className={`relative w-full aspect-[4/5] sm:aspect-square md:${ratio}`}
+                  className={`relative w-full aspect-[4/5] sm:aspect-square ${c.ratio}`}
                 >
                   <div
                     data-bento-img

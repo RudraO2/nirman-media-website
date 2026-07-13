@@ -19,6 +19,7 @@ export const nav = [
   { label: "Industries", href: "/industries" },
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
 ];
 

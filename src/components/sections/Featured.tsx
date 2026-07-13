@@ -123,14 +123,16 @@ export function Featured() {
             href={`/work/${p.slug}`}
             data-feat-card
             className={`group relative overflow-hidden rounded-2xl bg-navy text-cream cursor-pointer ${
-              i === 0 ? "md:col-span-8 md:row-span-2" : "md:col-span-4"
+              i === 0 ? "md:col-span-8 md:row-span-2 md:h-full" : "md:col-span-4"
             }`}
           >
+            {/* The side cards' 4/5 ratio sets the row heights; the big card
+                fills its 2-row cell exactly so image and grid never mismatch. */}
             <div
               className={`relative w-full ${
                 i === 0
-                  ? "aspect-[16/11] md:aspect-[16/12]"
-                  : "aspect-[4/5] md:aspect-[4/5]"
+                  ? "aspect-[16/11] md:aspect-auto md:h-full"
+                  : "aspect-[4/5]"
               }`}
             >
               <div

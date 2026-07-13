@@ -8,6 +8,7 @@ import { PageMeta } from "@/components/layout/PageMeta";
 import { site, trustStats } from "@/lib/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about/" },
   title: "About — Nirman Media",
   description:
     "Jaipur-based media studio. A trained eye, premium finish, and brand-speed delivery for hotels, resorts, restaurants, gyms, real estate.",
@@ -298,26 +299,20 @@ export default function AboutPage() {
       <section className="bg-cream px-6 md:px-10 py-20 md:py-28">
         <div className="mx-auto max-w-[1280px] grid grid-cols-12 gap-8 md:gap-12 items-center">
           <div className="col-span-12 md:col-span-5">
-            <p className="eyebrow text-gold mb-5">Visit the studio</p>
+            <p className="eyebrow text-gold mb-5">Contact us</p>
             <h2
               className="font-heading leading-[0.98] text-ink"
               style={{ fontSize: "clamp(36px, 5.5vw, 76px)" }}
             >
-              C-Scheme,{" "}
-              <em className="font-heading-italic text-gold">Jaipur.</em>
+              Let&apos;s{" "}
+              <em className="font-heading-italic text-gold">talk.</em>
             </h2>
             <p className="font-body text-ink/70 mt-5 max-w-sm">
-              Coffee&apos;s on. Bring a moodboard or a phone-shot reference —
-              we&apos;ll sketch the shot list at the table.
+              Bring a moodboard or a phone-shot reference — we&apos;ll sketch
+              the shot list together.
             </p>
 
             <dl className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4 max-w-sm">
-              <div>
-                <dt className="eyebrow text-ink/45 mb-1">Address</dt>
-                <dd className="font-body text-sm text-ink">
-                  {site.address}
-                </dd>
-              </div>
               <div>
                 <dt className="eyebrow text-ink/45 mb-1">Hours</dt>
                 <dd className="font-body text-sm text-ink">{site.hours}</dd>
