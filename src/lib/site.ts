@@ -21,15 +21,29 @@ export const site = {
   shortName: "Nirman",
   tagline: "Films. Photos. 3D Tours. Websites.",
   city: "Jaipur",
-  whatsapp: "+919999999999",
-  phone: "+91 99999 99999",
-  phoneRaw: "+919999999999",
-  email: "hello@nirman.media",
+  // Real founder line — the same number the CRM shows on its paused/recharge
+  // screens. Was `+91 99999 99999` (a placeholder that would have gone live).
+  whatsapp: "+919166921692",
+  phone: "+91 91669 21692",
+  phoneRaw: "+919166921692",
+  // ⚠️ The mailbox must exist. This was `hello@nirman.media` on an unregistered
+  // domain, so every enquiry hard-bounced. nirmanmedia.com is registered via
+  // GoDaddy but a mailbox/forwarder for `hello@` still has to be created there —
+  // until it is, this address bounces too. WhatsApp is the primary channel.
+  email: "hello@nirmanmedia.com",
   instagram: "https://instagram.com/nirman.media",
   address: "Studio · C-Scheme, Jaipur, Rajasthan",
   hours: "Mon–Sat · 10am to 8pm",
-  whatsappLink:
-    "https://wa.me/919999999999?text=Hi%20Nirman%20Media%2C%20I%27d%20like%20a%20quote%20for%20my%20project.",
+  // Derived, never hand-written: this line held its own copy of the number and
+  // so kept the placeholder even when the others were updated. wa.me wants bare
+  // digits (no +, no spaces).
+  get whatsappLink() {
+    const digits = this.whatsapp.replace(/\D/g, "");
+    const text = encodeURIComponent(
+      "Hi Nirman Media, I'd like a quote for my project.",
+    );
+    return `https://wa.me/${digits}?text=${text}`;
+  },
 };
 
 // Founder/author identity — used for Person schema (author attribution in
@@ -104,9 +118,17 @@ export const services = [
   },
 ];
 
+// A "4.9★ Google rating" tile used to sit here with no Google Business profile
+// and no review schema behind it (flagged in docs/seo-deferred-work.md). An
+// unverifiable star rating is the one claim on a page a buyer can check in ten
+// seconds, and Google penalises fabricated review markup specifically — so it is
+// replaced by something true and equally concrete.
+//
+// If the rating IS real: put the profile live, give me the actual review count,
+// and I will restore the tile AND back it with valid AggregateRating schema.
 export const trustStats = [
   { value: "50+", label: "Brands shot" },
   { value: "7 day", label: "Avg. delivery" },
-  { value: "4.9★", label: "Google rating" },
+  { value: "4K/8K", label: "Cinema-grade" },
   { value: "100%", label: "Jaipur-built" },
 ];

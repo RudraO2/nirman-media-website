@@ -23,6 +23,6 @@ Jaipur-based media studio. All prices in INR, starting price (final quote depend
 - Includes: design + build of a fast, conversion-tuned website
 
 ## Free tools
-- Property calculators (EMI, stamp duty, rent vs buy, rental yield, loan eligibility, brokerage, property tax, area converter): Free, no signup — https://nirman.media/tools/
+- Property calculators (EMI, stamp duty, rent vs buy, rental yield, loan eligibility, brokerage, property tax, area converter): Free, no signup — https://nirmanmedia.com/tools/
 
-Contact: hello@nirman.media · WhatsApp https://wa.me/919999999999
+Contact: hello@nirmanmedia.com · WhatsApp https://wa.me/919166921692
