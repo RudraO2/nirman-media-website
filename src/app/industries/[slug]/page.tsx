@@ -7,6 +7,7 @@ import { IndustryHero } from "@/components/sections/IndustryHero";
 import { IndustryBento } from "@/components/sections/IndustryBento";
 import { IndustryDeliverables } from "@/components/sections/IndustryDeliverables";
 import { CTA } from "@/components/sections/CTA";
+import { SITE_URL } from "@/lib/site";
 
 export function generateStaticParams() {
   return industries.map((i) => ({ slug: i.slug }));
@@ -23,8 +24,11 @@ export async function generateMetadata({
   return {
     title: `${industry.name} — Nirman Media`,
     description: `${industry.tagline} ${industry.blurb}`,
+    alternates: { canonical: `/industries/${industry.slug}/` },
   };
 }
+
+const BASE = SITE_URL;
 
 export default async function IndustryPage({
   params,
@@ -37,8 +41,27 @@ export default async function IndustryPage({
 
   const others = industries.filter((i) => i.slug !== industry.slug);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/` },
+      { "@type": "ListItem", position: 2, name: "Industries", item: `${BASE}/industries/` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: industry.name,
+        item: `${BASE}/industries/${industry.slug}/`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <IndustryHero industry={industry} />
       <IndustryBento industry={industry} />
       <IndustryDeliverables industry={industry} />

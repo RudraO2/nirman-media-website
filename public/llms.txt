@@ -7,26 +7,40 @@ Key facts:
 - Services and starting prices: Brand Films ₹85,000 (7-day delivery) · Photography ₹45,000 (5 days) · 3D Scrolly Tours ₹65,000 (10 days) · Brand Websites ₹1,20,000 (14 days)
 - Notable results: The Aurum Hotel +120% direct bookings; Skyline Residences sold 32 flats in 18 days; Bistro Maharaj 3× reservations after launch
 - Contact: hello@nirman.media · WhatsApp +91 99999 99999 · Mon–Sat 10am–8pm
+- Founder: Nirvan
 
 ## Pages
 
-- [Home](https://nirman.media/): What we do, featured work, and how we work
-- [Services](https://nirman.media/services/): Brand films, photography, 3D scrollytelling tours, websites — scope and pricing
-- [Pricing](https://nirman.media/pricing/): Starting prices and what's included
-- [Work](https://nirman.media/work/): Case studies with results
-- [Industries](https://nirman.media/industries/): Real estate, hotels, resorts, restaurants, gyms
-- [About](https://nirman.media/about/): The studio, the team, how we work
+- [Home](https://nirmanmedia.com/): What we do, featured work, and how we work
+- [Services](https://nirmanmedia.com/services/): Brand films, photography, 3D scrollytelling tours, websites — scope and pricing
+- [Pricing](https://nirmanmedia.com/pricing/): Starting prices and what's included
+- [Pricing (machine-readable)](https://nirmanmedia.com/pricing.md): Structured pricing for AI agents
+- [Work](https://nirmanmedia.com/work/): Case studies with results
+- [Industries](https://nirmanmedia.com/industries/): Real estate, hotels, resorts, restaurants, gyms
+- [About](https://nirmanmedia.com/about/): The studio, the team, how we work
 
 ## Jaipur real estate guides (buyer research)
 
-- [Top 10 Localities to Buy a Flat in Jaipur (2026)](https://nirman.media/blog/best-localities-to-buy-flat-in-jaipur/): Mansarovar, Jagatpura, Vaishali Nagar, Ajmer Road, Tonk Road and more — compared by connectivity, supply, and buyer fit
-- [जयपुर में फ्लैट खरीदने के लिए 10 बेहतरीन इलाके](https://nirman.media/blog/jaipur-me-flat-kharidne-ke-best-ilake/): Hindi guide to Jaipur's best residential localities
-- [How to Buy a Flat in Jaipur: Step-by-Step](https://nirman.media/blog/how-to-buy-flat-in-jaipur-step-by-step/): Budget, home loan, RERA verification, site visits, agreement, stamp duty, registry
-- [जयपुर में फ्लैट कैसे खरीदें: पूरी प्रक्रिया](https://nirman.media/blog/jaipur-me-flat-kaise-kharide/): Hindi step-by-step flat buying process for Jaipur
+- [Top 10 Localities to Buy a Flat in Jaipur (2026)](https://nirmanmedia.com/blog/best-localities-to-buy-flat-in-jaipur/): Mansarovar, Jagatpura, Vaishali Nagar, Ajmer Road, Tonk Road and more — compared by connectivity, supply, and buyer fit
+- [जयपुर में फ्लैट खरीदने के लिए 10 बेहतरीन इलाके](https://nirmanmedia.com/blog/jaipur-me-flat-kharidne-ke-best-ilake/): Hindi guide to Jaipur's best residential localities
+- [How to Buy a Flat in Jaipur: Step-by-Step](https://nirmanmedia.com/blog/how-to-buy-flat-in-jaipur-step-by-step/): Budget, home loan, RERA verification, site visits, agreement, stamp duty, registry
+- [जयपुर में फ्लैट कैसे खरीदें: पूरी प्रक्रिया](https://nirmanmedia.com/blog/jaipur-me-flat-kaise-kharide/): Hindi step-by-step flat buying process for Jaipur
+
+## Free property tools
+
+- [Tools index](https://nirmanmedia.com/tools/): Free calculators for Indian real estate & vastu
+- [Home Loan EMI Calculator](https://nirmanmedia.com/tools/emi/)
+- [Area Unit Converter](https://nirmanmedia.com/tools/area-converter/)
+- [Rajasthan Stamp Duty Calculator](https://nirmanmedia.com/tools/stamp-duty-rj/)
+- [Rent vs. Buy Calculator](https://nirmanmedia.com/tools/rent-vs-buy/)
+- [Rental Yield Calculator](https://nirmanmedia.com/tools/rental-yield/)
+- [Loan Eligibility Calculator](https://nirmanmedia.com/tools/loan-eligibility/)
+- [Brokerage Calculator](https://nirmanmedia.com/tools/brokerage/)
+- [Property Tax Calculator](https://nirmanmedia.com/tools/property-tax/)
 
 ## Service guides
 
-- [Real Estate Videography in Jaipur: Pricing, Process & What Actually Sells Flats](https://nirman.media/blog/real-estate-videography-jaipur/): Costs, shoot process, film vs photos vs 3D tours
-- [Hotel Photography That Fills Rooms](https://nirman.media/blog/hotel-photography-that-fills-rooms/): OTA galleries, direct bookings, what to shoot
-- [3D Scrollytelling Tours Explained](https://nirman.media/blog/3d-scrollytelling-tours-explained/): Scroll-driven walkthroughs vs Matterport-style tours, cost and timeline
-- [Restaurant Photography in Jaipur](https://nirman.media/blog/restaurant-photography-jaipur-guide/): Menu stills, ambience, reels that book tables
+- [Real Estate Videography in Jaipur: Pricing, Process & What Actually Sells Flats](https://nirmanmedia.com/blog/real-estate-videography-jaipur/): Costs, shoot process, film vs photos vs 3D tours
+- [Hotel Photography That Fills Rooms](https://nirmanmedia.com/blog/hotel-photography-that-fills-rooms/): OTA galleries, direct bookings, what to shoot
+- [3D Scrollytelling Tours Explained](https://nirmanmedia.com/blog/3d-scrollytelling-tours-explained/): Scroll-driven walkthroughs vs Matterport-style tours, cost and timeline
+- [Restaurant Photography in Jaipur](https://nirmanmedia.com/blog/restaurant-photography-jaipur-guide/): Menu stills, ambience, reels that book tables

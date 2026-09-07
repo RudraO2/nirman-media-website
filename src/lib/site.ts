@@ -1,3 +1,21 @@
+// The canonical origin, and the ONLY place it is written down.
+//
+// This used to be copy-pasted as a local `const BASE` in 13 page files plus
+// layout.tsx, robots.ts and sitemap.ts — which is how every one of them drifted
+// onto `https://nirman.media`, a domain that is NOT REGISTERED and does not
+// resolve. Canonical tags, the schema.org @id graph, the sitemap and robots all
+// pointed there, which would have told Google the real version of every page
+// lives at a dead host. The registered domain is nirmanmedia.com.
+//
+// Everything that needs an absolute URL imports SITE_URL or absUrl() from here.
+// Never reintroduce a local BASE constant.
+export const SITE_URL = "https://nirmanmedia.com";
+
+/** Absolute URL for a site-root-relative path. `absUrl("/work")`. */
+export function absUrl(path = "/"): string {
+  return path === "/" ? SITE_URL : `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
 export const site = {
   name: "Nirman Media",
   shortName: "Nirman",
@@ -14,11 +32,39 @@ export const site = {
     "https://wa.me/919999999999?text=Hi%20Nirman%20Media%2C%20I%27d%20like%20a%20quote%20for%20my%20project.",
 };
 
+// Founder/author identity — used for Person schema (author attribution in
+// search + AI answers) and sameAs profile links. Swap placeholder URLs for
+// real Medium/LinkedIn profiles once they exist.
+export const founder = {
+  name: "Nirvan",
+  jobTitle: "Founder",
+  worksFor: site.name,
+  sameAs: [
+    "https://medium.com/@nirman-media",
+    "https://www.linkedin.com/company/nirman-media",
+  ],
+};
+
+// Products built by the studio, hosted on their own subdomains. These are the
+// ONLY structural link between nirmanmedia.com and the CRM — before this the
+// two properties were entirely disconnected: the CRM site says "built by Nirman
+// Media" in prose but linked nowhere, and this site never mentioned the CRM at
+// all. Google had no way to see them as one entity, and a builder landing on
+// either one could not reach the other.
+export const products = [
+  {
+    name: "Nirman CRM",
+    href: "https://crm.nirmanmedia.com",
+    blurb: "Lead, follow-up and inventory software for real-estate builders.",
+  },
+];
+
 export const nav = [
   { label: "Work", href: "/work" },
   { label: "Industries", href: "/industries" },
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Tools", href: "/tools" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
 ];

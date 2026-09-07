@@ -4,6 +4,7 @@ import Link from "next/link";
 import { posts } from "@/lib/blog";
 import { Reveal } from "@/components/animation/Reveal";
 import { CTA } from "@/components/sections/CTA";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Blog — Nirman Media",
@@ -15,7 +16,24 @@ export const metadata: Metadata = {
     description:
       "Field guides on films, photography and 3D tours for spaces that need to sell.",
     type: "website",
+    images: [{ url: "/hero/hero-poster.jpg", width: 1280, height: 720 }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog — Nirman Media",
+    description:
+      "Field guides on films, photography and 3D tours for spaces that need to sell.",
+  },
+};
+
+const BASE = SITE_URL;
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/` },
+    { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE}/blog/` },
+  ],
 };
 
 const fmt = (iso: string) =>
@@ -32,6 +50,10 @@ export default function BlogIndex() {
   const rest = sorted.filter((p) => p.slug !== lead.slug);
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <section className="bg-cream pt-28 md:pt-36 pb-16 md:pb-20 px-6 md:px-10">
         <div className="mx-auto max-w-[1280px]">
           <Reveal as="p" className="eyebrow text-gold mb-4">

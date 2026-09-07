@@ -4,10 +4,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { posts, postBySlug } from "@/lib/blog";
 import { industryBySlug } from "@/lib/industries";
-import { site } from "@/lib/site";
+import { site, founder, SITE_URL } from "@/lib/site";
 import { CTA } from "@/components/sections/CTA";
 
-const BASE = "https://nirman.media";
+const BASE = SITE_URL;
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -25,8 +25,10 @@ export async function generateMetadata({
   if (post.pairSlug) {
     const self = post.lang === "hi" ? "hi-IN" : "en-IN";
     const other = post.lang === "hi" ? "en-IN" : "hi-IN";
+    const enSlug = post.lang === "hi" ? post.pairSlug : post.slug;
     languages[self] = `/blog/${post.slug}/`;
     languages[other] = `/blog/${post.pairSlug}/`;
+    languages["x-default"] = `/blog/${enSlug}/`;
   }
   return {
     title: `${post.title} — Nirman Media`,
@@ -88,9 +90,10 @@ export default async function BlogPost({
         inLanguage: post.lang === "hi" ? "hi-IN" : "en-IN",
         mainEntityOfPage: `${BASE}/blog/${post.slug}/`,
         author: {
-          "@type": "Organization",
-          name: site.name,
-          url: BASE,
+          "@type": "Person",
+          name: founder.name,
+          url: `${BASE}/about/`,
+          sameAs: founder.sameAs,
         },
         publisher: {
           "@type": "Organization",
@@ -153,7 +156,7 @@ export default async function BlogPost({
               )}
             </div>
             <p className="eyebrow text-gold mb-4">
-              {fmt(post.date)} · {post.readMinutes} min read
+              By {founder.name} · {fmt(post.date)} · {post.readMinutes} min read
             </p>
             <h1
               className="font-heading leading-[1.0] text-ink"
@@ -254,6 +257,17 @@ export default async function BlogPost({
                   className="inline-flex items-center gap-2 border border-ink/20 text-ink px-6 py-3.5 rounded-full font-body text-sm hover:bg-ink hover:text-cream transition-colors cursor-pointer"
                 >
                   How we shoot {related.label.toLowerCase()} →
+                </Link>
+              )}
+              {post.relatedIndustry === "real-estate" && (
+                <Link
+                  href="/tools"
+                  className="inline-flex items-center gap-2 border border-ink/20 text-ink px-6 py-3.5 rounded-full font-body text-sm hover:bg-ink hover:text-cream transition-colors cursor-pointer"
+                >
+                  {post.lang === "hi"
+                    ? "मुफ़्त प्रॉपर्टी कैलकुलेटर"
+                    : "Free property calculators"}{" "}
+                  →
                 </Link>
               )}
             </div>

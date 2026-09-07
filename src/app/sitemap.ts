@@ -3,8 +3,9 @@ import { projects } from "@/lib/projects";
 import { industries } from "@/lib/industries";
 import { posts } from "@/lib/blog";
 import { liveTools } from "@/lib/tools/registry";
+import { SITE_URL } from "@/lib/site";
 
-const base = "https://nirman.media";
+const base = SITE_URL;
 
 export const dynamic = "force-static";
 

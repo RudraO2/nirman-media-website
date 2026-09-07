@@ -204,7 +204,7 @@ export function ServicesExperience() {
                 <Image
                   key={`${active}-1`}
                   src={d.img}
-                  alt=""
+                  alt={`${services[idx].title} — Nirman Media`}
                   fill
                   sizes="(max-width: 768px) 60vw, 35vw"
                   className="object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
@@ -215,7 +215,7 @@ export function ServicesExperience() {
                   <Image
                     key={`${active}-2`}
                     src={d.image2}
-                    alt=""
+                    alt={`${services[idx].title} — Nirman Media, detail`}
                     fill
                     sizes="(max-width: 768px) 40vw, 20vw"
                     className="object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"

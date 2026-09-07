@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { WhatsAppFAB } from "@/components/ui/WhatsAppFAB";
 import { SiteLoader } from "@/components/opener/SiteLoader";
+import { founder, site, products, SITE_URL } from "@/lib/site";
 
 const heading = Playfair_Display({
   subsets: ["latin"],
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   title: "Nirman Media — Premium Films, Photography, 3D Tours & Websites",
   description:
     "Jaipur-based media studio for brands that live by first impressions. Films, photography, 3D scrollytelling tours, and websites for real estate, hotels, resorts, restaurants, and gyms.",
-  metadataBase: new URL("https://nirman.media"),
+  metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
   keywords: [
     "real estate videography Jaipur",
@@ -88,32 +89,58 @@ export default function RootLayout({
               "@graph": [
                 {
                   "@type": "Organization",
-                  "@id": "https://nirman.media/#org",
+                  "@id": `${SITE_URL}/#org`,
                   name: "Nirman Media",
                   alternateName: "Nirman Media Jaipur",
-                  url: "https://nirman.media",
-                  email: "hello@nirman.media",
-                  telephone: "+91 99999 99999",
-                  sameAs: ["https://instagram.com/nirman.media"],
+                  url: SITE_URL,
+                  email: site.email,
+                  telephone: site.phone,
+                  logo: `${SITE_URL}/logo.png`,
+                  sameAs: [
+                    site.instagram,
+                    ...founder.sameAs,
+                  ],
                   foundingDate: "2021",
                   slogan: "Make them stop. Make them feel. Make them book.",
+                  founder: { "@id": `${SITE_URL}/#founder` },
+                },
+                {
+                  "@type": "Person",
+                  "@id": `${SITE_URL}/#founder`,
+                  name: founder.name,
+                  jobTitle: founder.jobTitle,
+                  worksFor: { "@id": `${SITE_URL}/#org` },
+                  sameAs: founder.sameAs,
                 },
                 {
                   "@type": "WebSite",
-                  "@id": "https://nirman.media/#website",
-                  url: "https://nirman.media",
+                  "@id": `${SITE_URL}/#website`,
+                  url: SITE_URL,
                   name: "Nirman Media",
-                  publisher: { "@id": "https://nirman.media/#org" },
+                  publisher: { "@id": `${SITE_URL}/#org` },
                   inLanguage: "en-IN",
                 },
+                // The studio's own software product, on its own subdomain. Its
+                // graph (crm.nirmanmedia.com) publishes under this same #org id,
+                // so declaring it here closes the loop and the two sites read as
+                // one entity instead of two same-named strangers.
+                ...products.map((p) => ({
+                  "@type": "SoftwareApplication",
+                  name: p.name,
+                  url: p.href,
+                  description: p.blurb,
+                  applicationCategory: "BusinessApplication",
+                  operatingSystem: "Web, Android",
+                  publisher: { "@id": `${SITE_URL}/#org` },
+                })),
                 {
                   "@type": "ProfessionalService",
-                  "@id": "https://nirman.media/#service",
+                  "@id": `${SITE_URL}/#service`,
                   name: "Nirman Media",
                   description:
                     "Media studio in Jaipur — cinematic brand films, commercial photography, 3D scrollytelling tours and websites for real estate, hotels, resorts, restaurants and gyms. Most projects delivered in 7 days.",
-                  url: "https://nirman.media",
-                  parentOrganization: { "@id": "https://nirman.media/#org" },
+                  url: SITE_URL,
+                  parentOrganization: { "@id": `${SITE_URL}/#org` },
                   areaServed: [
                     { "@type": "City", name: "Jaipur" },
                     { "@type": "State", name: "Rajasthan" },

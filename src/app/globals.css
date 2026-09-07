@@ -174,7 +174,9 @@ html.lenis, html.lenis body { height: auto; }
 
 .tab-num { font-variant-numeric: tabular-nums; }
 
-/* Tool sliders — gold fill up to the thumb, cream track after. --pct set inline. */
+/* Tool sliders — emerald fill up to the thumb, neutral track after. --pct set
+   inline. Tools run their own app-like system (white/zinc + emerald), separate
+   from the site's editorial palette. Thumb sized for touch. */
 .tool-range {
   -webkit-appearance: none;
   appearance: none;
@@ -182,10 +184,10 @@ html.lenis, html.lenis body { height: auto; }
   border-radius: 9999px;
   background: linear-gradient(
     to right,
-    var(--color-gold) 0,
-    var(--color-gold) var(--pct, 0%),
-    var(--color-mist) var(--pct, 0%),
-    var(--color-mist) 100%
+    oklch(0.696 0.17 162.48) 0,
+    oklch(0.696 0.17 162.48) var(--pct, 0%),
+    oklch(0.92 0.004 286.32) var(--pct, 0%),
+    oklch(0.92 0.004 286.32) 100%
   );
   cursor: pointer;
   outline: none;
@@ -193,29 +195,45 @@ html.lenis, html.lenis body { height: auto; }
 .tool-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 9999px;
-  background: var(--color-navy);
-  border: 3px solid var(--color-cream);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  background: #fff;
+  border: 2.5px solid oklch(0.696 0.17 162.48);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
   cursor: pointer;
   transition: box-shadow 150ms var(--ease-out-quart);
 }
 .tool-range::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 9999px;
-  background: var(--color-navy);
-  border: 3px solid var(--color-cream);
+  background: #fff;
+  border: 2.5px solid oklch(0.696 0.17 162.48);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
   cursor: pointer;
   transition: box-shadow 150ms var(--ease-out-quart);
 }
 .tool-range:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0 0 0 4px color-mix(in oklch, var(--color-gold) 45%, transparent);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18), 0 0 0 4px oklch(0.696 0.17 162.48 / 0.35);
 }
 .tool-range:focus-visible::-moz-range-thumb {
-  box-shadow: 0 0 0 4px color-mix(in oklch, var(--color-gold) 45%, transparent);
+  box-shadow: 0 0 0 4px oklch(0.696 0.17 162.48 / 0.35);
+}
+.tool-range:hover::-webkit-slider-thumb {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18), 0 0 0 5px oklch(0.696 0.17 162.48 / 0.18);
+}
+.tool-range:hover::-moz-range-thumb {
+  box-shadow: 0 0 0 5px oklch(0.696 0.17 162.48 / 0.18);
+}
+
+/* Disclosure print behavior — a closed <details> is excluded from print in
+   every major browser, which would let "Download PDF" silently omit the
+   inputs behind a printed result. Only the toggle icon is hidden; the
+   summary heading text stays so printed sections remain labeled. */
+@media print {
+  details[data-print-expand] summary .disclosure-icon { display: none; }
+  details[data-print-expand]:not([open]) > .disclosure-body { display: block !important; }
 }
 
 .scrollbar-none { scrollbar-width: none; }

@@ -29,12 +29,12 @@ export function InputField({
   const fieldId = id ?? `field-${label.toLowerCase().replace(/\s+/g, "-")}`;
   return (
     <div className="space-y-2">
-      <label htmlFor={fieldId} className="font-body text-sm text-ink/70">
+      <label htmlFor={fieldId} className="font-body text-sm text-zinc-600">
         {label}
       </label>
-      <div className="flex items-center gap-1.5 rounded-lg border border-line bg-cream px-3 py-2.5 transition-colors focus-within:border-gold focus-within:bg-cream-warm/40 focus-within:ring-2 focus-within:ring-gold/20">
+      <div className="flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-2.5 transition-colors duration-200 hover:border-zinc-300 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:hover:border-emerald-500">
         {prefix ? (
-          <span className="font-body text-sm text-ink/55">{prefix}</span>
+          <span className="font-body text-sm text-zinc-400">{prefix}</span>
         ) : null}
         <input
           id={fieldId}
@@ -53,10 +53,10 @@ export function InputField({
               onChange(next);
             }
           }}
-          className="tab-num w-full bg-transparent font-body text-base font-medium text-ink outline-none"
+          className="tab-num w-full bg-transparent font-body text-base font-medium text-zinc-900 outline-none"
         />
         {suffix ? (
-          <span className="font-body text-sm text-ink/55">{suffix}</span>
+          <span className="font-body text-sm text-zinc-400">{suffix}</span>
         ) : null}
       </div>
     </div>

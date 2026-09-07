@@ -5,13 +5,26 @@ import { CTA } from "@/components/sections/CTA";
 import { ScrollFillText } from "@/components/animation/ScrollFillText";
 import { Reveal } from "@/components/animation/Reveal";
 import { PageMeta } from "@/components/layout/PageMeta";
-import { site, trustStats } from "@/lib/site";
+import { site, trustStats, SITE_URL } from "@/lib/site";
+const TITLE = "About — Nirman Media";
+const DESCRIPTION =
+  "Jaipur-based media studio. A trained eye, premium finish, and brand-speed delivery for hotels, resorts, restaurants, gyms, real estate.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/about/" },
-  title: "About — Nirman Media",
-  description:
-    "Jaipur-based media studio. A trained eye, premium finish, and brand-speed delivery for hotels, resorts, restaurants, gyms, real estate.",
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    images: [{ url: "/hero/hero-poster.jpg", width: 1280, height: 720 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 const pillars = [
@@ -47,9 +60,23 @@ const team = [
   { name: "—", role: "Producer", img: "/gen/about-4.webp" },
 ];
 
+const BASE = SITE_URL;
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/` },
+    { "@type": "ListItem", position: 2, name: "About", item: `${BASE}/about/` },
+  ],
+};
+
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <section className="relative w-full h-[88vh] min-h-[560px] md:min-h-[680px] overflow-hidden bg-navy text-cream">
         <Image
           src="/gen/about-1.webp"
@@ -278,7 +305,11 @@ export default function AboutPage() {
               >
                 <Image
                   src={m.img}
-                  alt=""
+                  alt={
+                    m.name === "—"
+                      ? `${m.role} at Nirman Media`
+                      : `${m.name}, ${m.role} at Nirman Media`
+                  }
                   fill
                   sizes="(max-width: 768px) 50vw, 30vw"
                   className="object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"

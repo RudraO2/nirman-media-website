@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { projects } from "@/lib/projects";
 import { industries } from "@/lib/industries";
+import { SITE_URL } from "@/lib/site";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -20,8 +21,11 @@ export async function generateMetadata({
   return {
     title: `${project.name} — Nirman Media`,
     description: `${project.categoryLabel} for ${project.builder} at ${project.location}. ${project.summary}`,
+    alternates: { canonical: `/work/${project.slug}/` },
   };
 }
+
+const BASE = SITE_URL;
 
 export default async function ProjectPage({
   params,
@@ -37,8 +41,27 @@ export default async function ProjectPage({
     (projects.findIndex((p) => p.slug === project.slug) + 1) % projects.length;
   const next = projects[nextIdx];
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/` },
+      { "@type": "ListItem", position: 2, name: "Work", item: `${BASE}/work/` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: project.name,
+        item: `${BASE}/work/${project.slug}/`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <section className="pt-28 md:pt-36 pb-12 px-6 md:px-10 bg-cream">
         <div className="mx-auto max-w-[1280px]">
           <Link
@@ -99,7 +122,7 @@ export default async function ProjectPage({
                 >
                   <Image
                     src={src}
-                    alt=""
+                    alt={`${project.name} — ${project.categoryLabel} gallery still`}
                     fill
                     sizes="50vw"
                     className="object-cover"

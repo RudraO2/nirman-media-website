@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LogoLockup } from "@/components/ui/Logo";
-import { site, nav } from "@/lib/site";
+import { site, nav, products } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -60,6 +60,20 @@ export function Footer() {
                   >
                     {n.label}
                   </Link>
+                </li>
+              ))}
+            </ul>
+
+            <p className="eyebrow text-cream/55 mb-5 mt-10">Products</p>
+            <ul className="space-y-3">
+              {products.map((p) => (
+                <li key={p.href}>
+                  <a
+                    href={p.href}
+                    className="link-underline font-body text-cream/85 hover:text-gold transition-colors"
+                  >
+                    {p.name}
+                  </a>
                 </li>
               ))}
             </ul>
